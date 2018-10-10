@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.iumium.personnel.generalaffairs.dao.DutyWorkerMapper">
+
+	<!-- 당직 리스트 -->
+    <select id="selectWorkerList"  resultType="com.cafe24.iumium.personnel.generalaffairs.dto.DutyWorker">
+		SELECT ilban_duty_worker.duty_worker_day_of_the_week AS workerDayOfTheWeek
+			,ilban_duty_worker.duty_worker_type AS workerType
+			,ilban_duty_worker.duty_worker_start_time AS workerStartTime
+			,ilban_duty_worker.duty_worker_end_time AS workerEndTime
+			,ilban_duty_worker.duty_worker_date AS workerDate
+			,ilban_duty_worker.duty_worker_special_note AS workerSpecialNote
+			,ilban_duty_worker.duty_worker_Approval_status AS workerApprovalStatus
+			,ilban_duty_worker.duty_worker_registration_day AS workerRegistrationDay
+			,ilban_human.human_name AS humanName
+			,haksa_department.dept_name_korean AS deptNameKorean
+			,haksa_job_rank.job_rank_name_korean AS rankNameKorean
+		FROM ilban_duty_worker INNER JOIN ilban_appointment
+			ON ilban_duty_worker.appointment_school_personnel_number = ilban_appointment.appointment_school_personnel_number
+		INNER JOIN ilban_human
+			ON ilban_duty_worker.appointment_school_personnel_number = ilban_human.student_teacher_no
+		INNER JOIN haksa_department
+			ON ilban_appointment.dept_code = haksa_department.dept_code
+		INNER JOIN haksa_job_rank
+			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
+		ORDER BY ilban_duty_worker.duty_worker_date DESC
+    </select>
+</mapper>

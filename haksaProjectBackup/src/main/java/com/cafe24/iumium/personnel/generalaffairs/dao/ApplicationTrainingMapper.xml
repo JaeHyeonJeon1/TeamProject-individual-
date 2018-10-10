@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.iumium.personnel.generalaffairs.dao.ApplicationTrainingMapper">
+
+	<!-- 2018.10.08 연수 리스트 -->
+    <select id="selectTrainingList"  resultType="com.cafe24.iumium.personnel.generalaffairs.dto.ApplicationTraining">
+		SELECT ilban_application_for_training.application_for_training_start_date AS trainingStartDate
+			,ilban_application_for_training.application_for_training_end_date AS trainingEndDate
+			,ilban_application_for_training.application_for_training_purpose AS trainingPurpose
+			,ilban_application_for_training.application_for_training_approval_status AS trainingApprovalStatus
+			,ilban_application_for_training.application_for_training_registration_day AS trainingRegistrationDay
+			,ilban_training.training_code_name AS trainingCodeName
+			,ilban_human.human_name AS humanName
+			,haksa_department.dept_name_korean AS deptNameKorean
+			,haksa_job_rank.job_rank_name_korean AS jobRankNameKorean
+		FROM ilban_application_for_training INNER JOIN ilban_appointment
+			ON ilban_application_for_training.appointment_school_personnel_number = ilban_appointment.appointment_school_personnel_number
+		INNER JOIN ilban_training
+			ON ilban_application_for_training.training_code = ilban_training.training_code
+		INNER JOIN ilban_human
+			ON ilban_appointment.appointment_school_personnel_number = ilban_human.student_teacher_no
+		INNER JOIN haksa_department
+			ON ilban_appointment.dept_code = haksa_department.dept_code
+		INNER JOIN haksa_job_rank
+			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
+		ORDER BY ilban_application_for_training.application_for_training_registration_day DESC
+    </select>
+</mapper>

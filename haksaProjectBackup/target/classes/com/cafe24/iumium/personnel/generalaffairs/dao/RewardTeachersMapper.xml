@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.iumium.personnel.generalaffairs.dao.RewardTeachersMapper">
+
+	<!-- 2018.10.08 포상 리스트 -->
+    <select id="selectRewardTeachersList"  resultType="com.cafe24.iumium.personnel.generalaffairs.dto.RewardTeachers">
+		SELECT ilban_reward_for_teachers.reward_for_teachers_awards AS teachersAwards
+			,ilban_reward_for_teachers.reward_for_teachers_awarding_agency AS teachersAwardingAgency
+			,ilban_reward_for_teachers.reward_for_teachers_awarder AS teachersAwarder
+			,ilban_reward_for_teachers.reward_for_teachers_detail AS teachersDetail
+			,ilban_reward_for_teachers.reward_for_teachers_attached_file AS teachersAttachedFile
+			,ilban_reward_for_teachers.reward_for_teachers_approval_status AS teachersApprovalStatus
+			,ilban_reward_for_teachers.reward_for_teachers_registration_day AS teachersRegistrationDay
+			,haksa_department.dept_name_korean AS deptNameKorean
+			,haksa_job_rank.job_rank_name_korean AS rankNameKorean
+			,ilban_human.human_name AS humanName
+		FROM ilban_reward_for_teachers INNER JOIN ilban_appointment
+			ON ilban_reward_for_teachers.appointment_school_personnel_number = ilban_appointment.appointment_school_personnel_number
+		INNER JOIN ilban_human
+			ON ilban_reward_for_teachers.appointment_school_personnel_number = ilban_human.student_teacher_no
+		INNER JOIN haksa_department
+			ON ilban_appointment.dept_code = haksa_department.dept_code
+		INNER JOIN haksa_job_rank
+			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
+		ORDER BY ilban_reward_for_teachers.reward_for_teachers_registration_day ASC
+    </select>
+</mapper>

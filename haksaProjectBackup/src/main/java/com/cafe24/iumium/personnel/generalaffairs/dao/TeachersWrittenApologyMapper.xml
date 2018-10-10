@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.iumium.personnel.generalaffairs.dao.TeachersWrittenApologyMapper">
+
+	<!-- 2018.10.08 시말서 리스트 -->
+    <select id="selectWrittenApologyList"  resultType="com.cafe24.iumium.personnel.generalaffairs.dto.TeachersWrittenApology">
+		SELECT ilban_teachers_written_apology.teachers_written_apology_disciplinary_history AS apologyDisciplinaryHistory
+			,ilban_teachers_written_apology.teachers_written_apology_whether_to_submit AS apologyWhetherToSubmit
+			,ilban_teachers_written_apology.teachers_written_apology_registration_day AS teachersWrittenApologyRegistrationDay
+			,haksa_department.dept_name_korean AS deptNameKorean
+			,haksa_job_rank.job_rank_name_korean AS rankNameKorean
+			,ilban_human.human_name AS humanName
+		FROM ilban_teachers_written_apology INNER JOIN ilban_appointment
+			ON ilban_teachers_written_apology.appointment_school_personnel_number = ilban_appointment.appointment_school_personnel_number
+		INNER JOIN ilban_human
+			ON ilban_teachers_written_apology.appointment_school_personnel_number = ilban_human.student_teacher_no
+		INNER JOIN haksa_department
+			ON ilban_appointment.dept_code = haksa_department.dept_code
+		INNER JOIN haksa_job_rank
+			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
+		ORDER BY ilban_teachers_written_apology.teachers_written_apology_registration_day DESC
+    </select>
+</mapper>
