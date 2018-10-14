@@ -12,6 +12,7 @@
 			,ilban_duty_worker.duty_worker_special_note AS workerSpecialNote
 			,ilban_duty_worker.duty_worker_Approval_status AS workerApprovalStatus
 			,ilban_duty_worker.duty_worker_registration_day AS workerRegistrationDay
+			,ilban_duty_worker.appointment_school_personnel_number AS personnelNumber
 			,ilban_human.human_name AS humanName
 			,haksa_department.dept_name_korean AS deptNameKorean
 			,haksa_job_rank.job_rank_name_korean AS rankNameKorean
@@ -24,5 +25,31 @@
 		INNER JOIN haksa_job_rank
 			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
 		ORDER BY ilban_duty_worker.duty_worker_date DESC
+    </select>
+    
+    <!-- 부서코드 리스트 -->
+    <select id="searchDepartmentCodesList" resultType="com.cafe24.iumium.common.dto.DepartmentCode">
+    	SELCT dept_name_korean
+    		,dept_code
+    	FROM haksa_department
+    	ORDER BY dept_code ASC
+    </select>
+    
+    <!-- 팀코드 리스트  -->
+    <select id="searchTeamCodesList" resultType="com.cafe24.iumium.common.dto.TeamCode">
+    	SELECT team_code
+    		,team_name_korean
+    	FROM haksa_team
+    	WHERE dept_code = #{deptCode}
+    	ORDER BY dept_code ASC
+    </select>
+    
+    <!-- 검색 리스트 -->
+     <select id="searchUserList" resultType="com.cafe24.iumium.personnel.generalaffairs.dto.UserCheckList">
+    	SELECT team_code
+    		,team_name_korean
+    	FROM haksa_team
+    	WHERE dept_code = #{deptCode}
+    	ORDER BY dept_code ASC
     </select>
 </mapper>

@@ -11,6 +11,8 @@
 	
 		<title>duty worker List</title>
 		
+		<script src="/resources/vendor/jquery/jquery.js"></script>
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
@@ -24,7 +26,43 @@
 		
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
-	
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				console.log('dutyWorkerList-jquey');
+				
+				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+					var target = $(e.target).attr("href") // activated tab
+				});
+				
+				// 모두 체크&풀기
+				$('#AllCheckboxChoice').click(function() {
+					console.log('AllCheckboxChoice');
+					
+					
+				});
+				
+				// 승인 처리
+				$('#checkboxBtn').click(function() {
+					
+					var checkedDataList = new Array();
+					var count = new Array();
+					var checkdData = $('#userCheck');
+					
+					for(i=0; i<checkdData.length; i++) {
+						
+						if(checkdData[i].cheked == true) {
+							
+							checkedDataList[count] = checkdData[i].value;
+							count++;
+						}
+						
+					}
+					
+				});
+				
+			});
+		</script>
 	</head>
 	
 	<body id="page-top">
@@ -39,57 +77,180 @@
 	
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
-				
-					<h1>당직 리스트</h1>
-					<br><br>
-					<table border="">
-				        <thead>
-				             <tr>
-				             	<td><input type="checkbox"></td>
-				            	<td>근무 일자</td>
-								<td>근무 요일</td>
-								<td>근태 종류</td>
-								<td>근무시작 시간</td>
-								<td>근무종료 시간</td>
-								<td>부서 명</td>
-								<td>직급 명</td>
-								<td>성명</td>
-								<td>비고</td>
-								<td>승인여부</td>
-								<td>등록일</td>
-				            </tr>
-				        </thead>
-				        <tbody>
-		            		<c:forEach var="row" items="${workerList}">
-				                <tr>
-				                	<td><input type="checkbox"></td>
-				                    <td>${row.workerDate }</td>
-				                    <td>${row.workerDayOfTheWeek }</td>
-				                    <td>${row.workerType }</td>
-				                    <td>${row.workerStartTime }</td>
-				                    <td>${row.workerEndTime }</td>
-				                    <td>${row.deptNameKorean }</td>
-				                    <td>${row.rankNameKorean }</td>
-				                    <td>${row.humanName }</td>
-				                    <td>${row.workerSpecialNote }</td>
-				                    <c:choose>
-										<c:when test="${row.workerApprovalStatus eq 'C' }" >
-											<td>확인중</td>
-										</c:when>
-										
-										<c:when test="${row.workerApprovalStatus eq 'Y' }" >
-											<td>승인완료</td>
-										</c:when>
-										
-										<c:when test="${row.workerApprovalStatus eq 'N' }" >
-											<td>승인불가</td>
-										</c:when>
-									</c:choose>
-				                    <td>${row.workerRegistrationDay }</td>
-				                </tr>
-				            </c:forEach>
-		        		</tbody>
-		    		</table>
+				<div role="tabpanel">
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#home" aria-controls="approvalOfDutyOnDuty" role="tab" data-toggle="tab">당직근무 승인완료 리스트</a></li>
+						<li role="presentation"><a href="#profile" aria-controls="approvalStatusOfDutyCheck" role="tab" data-toggle="tab">당직근무 승인여부 리스트</a></li>
+						<li role="presentation"><a href="#settings" aria-controls="unableDutyWorkOnTime" role="tab" data-toggle="tab">당직근무 불가 리스트</a></li>
+					</ul>
+					
+					  <!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="approvalOfDutyOnDuty">
+							<h1>당직근무 승인완료 리스트</h1>
+							<br><br>
+							<table border="">
+						        <thead>
+						             <tr>
+						             	<td><input type="checkbox" id="AllCheckboxChoice"></td>
+						            	<td>근무 일자</td>
+										<td>근무 요일</td>
+										<td>근태 종류</td>
+										<td>근무시작 시간</td>
+										<td>근무종료 시간</td>
+										<td>부서 명</td>
+										<td>직급 명</td>
+										<td>성명</td>
+										<td>비고</td>
+										<td>승인여부</td>
+										<td>등록일</td>
+										<td><button type="button" id="checkboxBtn" value="승인"></button></td>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${workerList}">
+						                <tr>
+						                	<td><input id="userCheck" type="checkbox" name="userBox[]" value="${row.personnelNumber }"></td>
+						                    <td>${row.workerDate }</td>
+						                    <td>${row.workerDayOfTheWeek }</td>
+						                    <td>${row.workerType }</td>
+						                    <td>${row.workerStartTime }</td>
+						                    <td>${row.workerEndTime }</td>
+						                    <td>${row.deptNameKorean }</td>
+						                    <td>${row.rankNameKorean }</td>
+						                    <td>${row.humanName }</td>
+						                    <td>${row.workerSpecialNote }</td>
+						                    <c:choose>
+												<c:when test="${row.workerApprovalStatus eq 'C' }" >
+													<td>확인중</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'Y' }" >
+													<td>승인완료</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'N' }" >
+													<td>승인불가</td>
+												</c:when>
+											</c:choose>
+						                    <td>${row.workerRegistrationDay }</td>
+						                </tr>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+						
+						<div role="tabpanel" class="tab-pane" id="approvalStatusOfDutyCheck">
+							<h1>당직근무 승인여부 리스트</h1>
+							<br><br>
+							<table border="">
+						        <thead>
+						             <tr>
+						             	<td><input type="checkbox"></td>
+						            	<td>근무 일자</td>
+										<td>근무 요일</td>
+										<td>근태 종류</td>
+										<td>근무시작 시간</td>
+										<td>근무종료 시간</td>
+										<td>부서 명</td>
+										<td>직급 명</td>
+										<td>성명</td>
+										<td>비고</td>
+										<td>승인여부</td>
+										<td>등록일</td>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${workerList}">
+						                <tr>
+						                	<td><input type="checkbox"></td>
+						                    <td>${row.workerDate }</td>
+						                    <td>${row.workerDayOfTheWeek }</td>
+						                    <td>${row.workerType }</td>
+						                    <td>${row.workerStartTime }</td>
+						                    <td>${row.workerEndTime }</td>
+						                    <td>${row.deptNameKorean }</td>
+						                    <td>${row.rankNameKorean }</td>
+						                    <td>${row.humanName }</td>
+						                    <td>${row.workerSpecialNote }</td>
+						                    <c:choose>
+												<c:when test="${row.workerApprovalStatus eq 'C' }" >
+													<td>확인중</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'Y' }" >
+													<td>승인완료</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'N' }" >
+													<td>승인불가</td>
+												</c:when>
+											</c:choose>
+						                    <td>${row.workerRegistrationDay }</td>
+						                </tr>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+						
+						<div role="tabpanel" class="tab-pane" id="unableDutyWorkOnTime">
+							<h1>당직근무 불가 리스트</h1>
+							<br><br>
+							<table border="">
+						        <thead>
+						             <tr>
+						             	<td><input type="checkbox"></td>
+						            	<td>근무 일자</td>
+										<td>근무 요일</td>
+										<td>근태 종류</td>
+										<td>근무시작 시간</td>
+										<td>근무종료 시간</td>
+										<td>부서 명</td>
+										<td>직급 명</td>
+										<td>성명</td>
+										<td>비고</td>
+										<td>승인여부</td>
+										<td>등록일</td>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${workerList}">
+						                <tr>
+						                	<td><input type="checkbox"></td>
+						                    <td>${row.workerDate }</td>
+						                    <td>${row.workerDayOfTheWeek }</td>
+						                    <td>${row.workerType }</td>
+						                    <td>${row.workerStartTime }</td>
+						                    <td>${row.workerEndTime }</td>
+						                    <td>${row.deptNameKorean }</td>
+						                    <td>${row.rankNameKorean }</td>
+						                    <td>${row.humanName }</td>
+						                    <td>${row.workerSpecialNote }</td>
+						                    <c:choose>
+												<c:when test="${row.workerApprovalStatus eq 'C' }" >
+													<td>확인중</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'Y' }" >
+													<td>승인완료</td>
+												</c:when>
+												
+												<c:when test="${row.workerApprovalStatus eq 'N' }" >
+													<td>승인불가</td>
+												</c:when>
+											</c:choose>
+						                    <td>${row.workerRegistrationDay }</td>
+						                </tr>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+					</div>
+					
+					</div>
+					
 				</div>
 				<!-- /.container-fluid -->
 	

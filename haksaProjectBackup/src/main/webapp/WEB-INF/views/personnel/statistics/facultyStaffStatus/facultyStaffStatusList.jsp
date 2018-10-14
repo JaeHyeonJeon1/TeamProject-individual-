@@ -1,4 +1,4 @@
-<!-- 2018.10.10 28기 전재현 -->
+<!-- 2018.10.12 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-		<title>holiday insert</title>
+		<title>faculty staff status list</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
@@ -29,43 +29,6 @@
 	
 	</head>
 	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			console.log('holidayInsert-script');
-			
-			$('#holidayInsertBtn').click(function() {
-				console.log('holidayInsert-holidayInsertBtn');
-				
-				// 휴일구분 검사
-				if($('#holidayCategory').val().length < 1) {
-					console.log('holidayInsert-holidayCategory');
-					
-					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
-					$('#holidayCategory').focus();
-					
-				// 휴일명 검사
-				} else if($('#holidayName').val().length < 1) {
-					console.log('holidayInsert-holidayCategoryHellper');
-					
-					$('#holidayCategoryHellper').html('');
-					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
-					$('#holidayName').focus();
-					
-				// 휴일기간 검사
-				} else if($('#holidayStartDay') > $('#holidayEndDay')) {
-					console.log('holidayInsert-holidayDay');
-					
-					$('#holidayNameHellper').html('');
-					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
-					$('#holidayStartDay').focus();
-					
-				}
-				
-			});
-			
-		});
-	</script>
-	
 	<body id="page-top">
 	
 		<jsp:include page="/WEB-INF/views/module/nav.jsp"/>
@@ -78,39 +41,46 @@
 	
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
-				
-				<h1>휴일 입력</h1>
-				<br><br>
-				
-				<form>
-				
-					<table>
-						<tr>
-							<td>
-								휴일 구분 <input type="text" id="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내 입력하세요.">
-								<span id="holidayCategoryHellper"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								휴일 명 <input type="text" id="holidayName" maxlength="10" placeholder="2자이상 10자 이내 입력하세요.">
-								<span id="holidayNameHellper"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								휴일 기간 <input type="date" id="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay">
-								<span id="holidayDayHellper"></span>
-							</td>
-						</tr>
+					<div class="page-header">
+						<h1>교직원 현황 리스트</h1>
+					</div>
+					<br><br>
+					<c:forEach var="row" items="${facultyStaffStatusList}">
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingOne">
+										<h4 class="panel-title">
+										<a id="searchList" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											전임교원 리스트
+										</a>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+										<div class="panel-body">
+											<c:if test=""><!-- ${facultyStaffStatusList.직군 eq ${'#searchList'}} -->
+												<c:forEach var="searchList" items="${facultyStaffStatusList}">
+													<div class="row">
+														<div class="col-sm-6 col-md-4">
+															<div class="thumbnail">
+																<img src="..." alt="...">
+																<div class="caption">
+																	<h3>이름</h3>
+																	<p>부서</p>
+																	<p>직급</p>
+																	<p>전화번호</p>
+																	<p>이메일</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
+											</c:if>
+										</div>
+									</div>
+								</div>
+							</div>
 						
-						<tr>
-							<td><input type="submit" id="holidayInsertBtn" value="등록"></td>
-						</tr>
-					</table>
-					
-				</form>
-							
+					</c:forEach>
 				</div>
 				<!-- /.container-fluid -->
 	

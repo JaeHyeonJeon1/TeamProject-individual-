@@ -1,4 +1,4 @@
-<!-- 2018.10.10 28기 전재현 -->
+<!-- 2018.10.12 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-		<title>holiday insert</title>
+		<title>apology List</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
@@ -31,37 +31,22 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			console.log('holidayInsert-script');
+			console.log('duty worker insert-script');
 			
-			$('#holidayInsertBtn').click(function() {
-				console.log('holidayInsert-holidayInsertBtn');
-				
-				// 휴일구분 검사
-				if($('#holidayCategory').val().length < 1) {
-					console.log('holidayInsert-holidayCategory');
-					
-					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
-					$('#holidayCategory').focus();
-					
-				// 휴일명 검사
-				} else if($('#holidayName').val().length < 1) {
-					console.log('holidayInsert-holidayCategoryHellper');
-					
-					$('#holidayCategoryHellper').html('');
-					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
-					$('#holidayName').focus();
-					
-				// 휴일기간 검사
-				} else if($('#holidayStartDay') > $('#holidayEndDay')) {
-					console.log('holidayInsert-holidayDay');
-					
-					$('#holidayNameHellper').html('');
-					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
-					$('#holidayStartDay').focus();
-					
-				}
-				
-			});
+		// 팝업 생성	
+		$('#apologyCheckBtn').click(function() {
+			
+			var userCheckList = window.open("/personnel/generalAffairsManagement/dutyWorker/dutyWorkerInsertPopup", "pop", "width=570,heigth=420, scrollbars=yes, resizable=yes")
+			
+		});
+		
+		function userDetailData(userDepartment ,userRank ,humanName ,personnelNumber) {
+			
+			document.dutyWorkerForm.userDepartment.value = userDepartment;
+			document.dutyWorkerForm.userRank.value = userRank;
+			document.dutyWorkerForm.humanName.value = humanName;
+			document.dutyWorkerForm.personnelNumber.value = personnelNumber;
+		}
 			
 		});
 	</script>
@@ -77,35 +62,39 @@
 			<div id="content-wrapper">
 	
 				<div class="container-fluid">
-				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>휴일 입력</h1>
+				<h1>교직원 시말서</h1>
 				<br><br>
 				
-				<form>
+				<form name="dutyWorkerForm" id="apologyForm">
 				
 					<table>
 						<tr>
 							<td>
-								휴일 구분 <input type="text" id="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내 입력하세요.">
-								<span id="holidayCategoryHellper"></span>
+								당직근무자 부서<input type="text" id="userDepartment" readonly>
+								<button id="apologyCheckBtn">성명 찾기</button>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 명 <input type="text" id="holidayName" maxlength="10" placeholder="2자이상 10자 이내 입력하세요.">
-								<span id="holidayNameHellper"></span>
+								당직근무자 직급<input type="text" id="userRank" readonly>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 기간 <input type="date" id="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay">
-								<span id="holidayDayHellper"></span>
+								당직근무자 성명<input type="text" id="humanName" readonly>
+								<input type="hidden" id="personnelNumber">
 							</td>
 						</tr>
-						
 						<tr>
-							<td><input type="submit" id="holidayInsertBtn" value="등록"></td>
+							<td>
+								징계 내역<input type="text" id="apologyDisciplinaryContents">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								첨부파일<input type="file" id="apologyAttachedFile">
+							</td>
 						</tr>
 					</table>
 					

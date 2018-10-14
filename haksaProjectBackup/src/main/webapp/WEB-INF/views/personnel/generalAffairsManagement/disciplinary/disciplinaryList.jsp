@@ -1,17 +1,11 @@
-<!-- 2018.10.10 28기 전재현 -->
+ <!-- 2018.10.08 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-	
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-		<title>holiday insert</title>
-		
-		<script src="/resources/vendor/jquery/jquery.js"></script>
+		<meta charset="UTF-8">
+		<title>disciplinary List</title>
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,46 +20,8 @@
 		
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
-	
+		
 	</head>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			console.log('holidayInsert-script');
-			
-			$('#holidayInsertBtn').click(function() {
-				console.log('holidayInsert-holidayInsertBtn');
-				
-				// 휴일구분 검사
-				if($('#holidayCategory').val().length < 1) {
-					console.log('holidayInsert-holidayCategory');
-					
-					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
-					$('#holidayCategory').focus();
-					
-				// 휴일명 검사
-				} else if($('#holidayName').val().length < 1) {
-					console.log('holidayInsert-holidayCategoryHellper');
-					
-					$('#holidayCategoryHellper').html('');
-					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
-					$('#holidayName').focus();
-					
-				// 휴일기간 검사
-				} else if($('#holidayStartDay') > $('#holidayEndDay')) {
-					console.log('holidayInsert-holidayDay');
-					
-					$('#holidayNameHellper').html('');
-					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
-					$('#holidayStartDay').focus();
-					
-				}
-				
-			});
-			
-		});
-	</script>
-	
 	<body id="page-top">
 	
 		<jsp:include page="/WEB-INF/views/module/nav.jsp"/>
@@ -79,38 +35,44 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>휴일 입력</h1>
+				<h1>징계 리스트</h1>
 				<br><br>
+				<table border="">
+			        <thead>
+			            <tr>
+			            	<td>부서 명</td>
+							<td>직급 명</td>
+							<td>성명</td>
+							<td>징계</td>
+							<td>징계기간</td>
+							<td>등록일자</td>
+			            </tr>
+			        </thead>
+			        <tbody>
+	            		<c:forEach var="row" items="${pologyList}">
+			                <tr>
+			                    <td>${row.deptNameKorean }</td>
+			                    <td>${row.rankNameKorean }</td>
+			                    <td>${row.humanName }</td>
+			                     <c:choose>
+										<c:when test="${row.apologyWhetherToSubmit eq 'C' }" >
+											<td>확인중</td>
+										</c:when>
+										
+										<c:when test="${row.apologyWhetherToSubmit eq 'Y' }" >
+											<td>승인완료</td>
+										</c:when>
+										
+										<c:when test="${row.apologyWhetherToSubmit eq 'N' }" >
+											<td>승인불가</td>
+										</c:when>
+									</c:choose>
+			                    <td>${row.teachersWrittenApologyRegistrationDay }</td>
+			                </tr>
+			            </c:forEach>
+	        		</tbody>
+	    		</table>
 				
-				<form>
-				
-					<table>
-						<tr>
-							<td>
-								휴일 구분 <input type="text" id="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내 입력하세요.">
-								<span id="holidayCategoryHellper"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								휴일 명 <input type="text" id="holidayName" maxlength="10" placeholder="2자이상 10자 이내 입력하세요.">
-								<span id="holidayNameHellper"></span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								휴일 기간 <input type="date" id="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay">
-								<span id="holidayDayHellper"></span>
-							</td>
-						</tr>
-						
-						<tr>
-							<td><input type="submit" id="holidayInsertBtn" value="등록"></td>
-						</tr>
-					</table>
-					
-				</form>
-							
 				</div>
 				<!-- /.container-fluid -->
 	

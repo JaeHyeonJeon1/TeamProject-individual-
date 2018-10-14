@@ -1,4 +1,4 @@
-<!-- 2018.10.10 28기 전재현 -->
+<!-- 2018.10.12 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -8,8 +8,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
-		<title>holiday insert</title>
+		
+		<!-- 학과별 검색 -->
+		<title>department Search</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
@@ -27,43 +28,31 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
+		<script>
+			$(document).ready(function() {
+				
+				$('searchDepartmentBtn').click(function() {
+					
+					// 학과코드 null
+					if($('#searchDepartmentList').val() == null) {
+						
+						$('saerchTeamCodeHellper').text('직군을 선택해주세요.');
+						
+						return false;
+						
+					} else {
+						
+						$('saerchTeamCodeHellper').text('');
+					}
+					
+				});
+				
+			});
+		</script>
 	</head>
 	
 	<script type="text/javascript">
-		$(document).ready(function() {
-			console.log('holidayInsert-script');
-			
-			$('#holidayInsertBtn').click(function() {
-				console.log('holidayInsert-holidayInsertBtn');
-				
-				// 휴일구분 검사
-				if($('#holidayCategory').val().length < 1) {
-					console.log('holidayInsert-holidayCategory');
-					
-					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
-					$('#holidayCategory').focus();
-					
-				// 휴일명 검사
-				} else if($('#holidayName').val().length < 1) {
-					console.log('holidayInsert-holidayCategoryHellper');
-					
-					$('#holidayCategoryHellper').html('');
-					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
-					$('#holidayName').focus();
-					
-				// 휴일기간 검사
-				} else if($('#holidayStartDay') > $('#holidayEndDay')) {
-					console.log('holidayInsert-holidayDay');
-					
-					$('#holidayNameHellper').html('');
-					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
-					$('#holidayStartDay').focus();
-					
-				}
-				
-			});
-			
-		});
+		
 	</script>
 	
 	<body id="page-top">
@@ -77,38 +66,41 @@
 			<div id="content-wrapper">
 	
 				<div class="container-fluid">
-				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>휴일 입력</h1>
+				<h1>학과 검색</h1>
 				<br><br>
 				
-				<form>
-				
+				<form action="/personnel/statistics/department/departmentSearchAction" method="GET">
 					<table>
 						<tr>
 							<td>
-								휴일 구분 <input type="text" id="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내 입력하세요.">
-								<span id="holidayCategoryHellper"></span>
+								기준일자
+								<select>
+									<option id="theRemainingYears" value="${fullTimeTeacherSearchYear+1}-04-02">${(fullTimeTeacherSearchYear+1)}-04-02이전</option>
+									<c:forEach var="searchYear" begin="${fullTimeTeacherSearchYear}" end="${(fullTimeTeacherSearchYear+5)}" step="1">
+										<option>${searchYear}-04-02</option>
+									</c:forEach>
+								</select>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 명 <input type="text" id="holidayName" maxlength="10" placeholder="2자이상 10자 이내 입력하세요.">
-								<span id="holidayNameHellper"></span>
+								검색 학과
+								<select id="searchDepartmentList">
+									<option value="Null">===선택===</option>
+									<c:forEach var="row" items="searchDepartmentList">
+										<option value="teamCode">${row.teamNameKorean}</option>
+									</c:forEach>
+								</select>
+								<input id="saerchTeamCodeHellper" type="text">
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 기간 <input type="date" id="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay">
-								<span id="holidayDayHellper"></span>
+								<button id="searchDepartmentBtn" type="submit" value="검색"></button>
 							</td>
-						</tr>
-						
-						<tr>
-							<td><input type="submit" id="holidayInsertBtn" value="등록"></td>
 						</tr>
 					</table>
-					
 				</form>
 							
 				</div>
