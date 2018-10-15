@@ -29,7 +29,7 @@
 	
 		<script type="text/javascript">
 		
-			$(document).ready(()=>{
+			$(document).ready(function(){
 				console.log('holidayList-script');
 				
 				// 입력 페이지 이동

@@ -1,5 +1,5 @@
 // 2018.10.14 28기 전재
-package com.cafe24.iumium.personnel.statistics.Dto;
+package com.cafe24.iumium.personnel.statistics.dto;
 
 public class FullTimeTeacher {
 

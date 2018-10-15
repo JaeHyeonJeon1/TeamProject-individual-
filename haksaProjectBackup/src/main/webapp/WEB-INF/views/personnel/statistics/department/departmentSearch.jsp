@@ -76,7 +76,7 @@
 							<td>
 								기준일자
 								<select>
-									<option id="theRemainingYears" value="${fullTimeTeacherSearchYear+1}-04-02">${(fullTimeTeacherSearchYear+1)}-04-02이전</option>
+									<option id="theRemainingYears" value="${(fullTimeTeacherSearchYear+1)}-04-02">${(fullTimeTeacherSearchYear+1)}-04-02이전</option>
 									<c:forEach var="searchYear" begin="${fullTimeTeacherSearchYear}" end="${(fullTimeTeacherSearchYear+5)}" step="1">
 										<option>${searchYear}-04-02</option>
 									</c:forEach>

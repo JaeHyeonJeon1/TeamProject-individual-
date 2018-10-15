@@ -17,6 +17,8 @@
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
 		
 		<!-- Custom fonts for this template-->
@@ -50,33 +52,35 @@
 			}
 			
 			// 행 추가
-			var rowItem = "<tr>"
-				rowItem += 	"<td><input type='date' id='dutyWorkerDate'></td>"
-				rowItem += 	"<td>"
-						+		"<select id='dutyWorkerDay'>"	
-						+			"<option value='doNotHaveData' selected>===선택====</option>"
-						+			"<option>월요일</option>"
-						+			"<option>화요일</option>"
-						+			"<option>수요일</option>"
-						+			"<option>목요일</option>"
-						+			"<option>금요일</option>"
-						+			"<option>토요일</option>"
-						+			"<option>일요일</option>"
-						+ 		"</select>"
-						+ 	"</td>"
-				rowItem += 	"<td><input type='time' id='dutyWorkerStartTime'>&nbsp;-&nbsp;당직근무 종료 시간<input type='time' id='dutyWorkerEndTime'></td>"
-				rowItem +=	"<td><input type='text' id='userDepartment' readonly><button type='button' id='userCheckBtn' value='당직근무자 찾기'></button></td>"
-				rowItem +=	"<td><input type='text' id='userRank' readonly></td>"
-				rowitem +=	"<td><input type='text' id='humanName' readonly></td>"
-				rowitem +=	"<td><input type='hidden' id='dutyWorkerNote' value='''></td>"
-				rowitem +=	"<td><input type='hidden' id='dutyWorkerApprovalStatus' value='C'></td>"
-				rowItem += 	"<td> <button type='button' class='btn btn-danger'> <i class='fa fa-minus'></i> </button> </td>"
-				rowitem += "</tr>"
-				
-			$('#dutyWorkerForm').append(rowItem);
+			$('input[name="inputWindow"]').click(function(){
+				var rowItem = "<tr>"
+					rowItem += 	"<td><input type='date' id='dutyWorkerDate'></td>"
+					rowItem += 	"<td>"
+							+		"<select id='dutyWorkerDay'>"	
+							+			"<option value='doNotHaveData' selected>===선택====</option>"
+							+			"<option>월요일</option>"
+							+			"<option>화요일</option>"
+							+			"<option>수요일</option>"
+							+			"<option>목요일</option>"
+							+			"<option>금요일</option>"
+							+			"<option>토요일</option>"
+							+			"<option>일요일</option>"
+							+ 		"</select>"
+							+ 	"</td>"
+					rowItem += 	"<td><input type='time' id='dutyWorkerStartTime'>&nbsp;-&nbsp;당직근무 종료 시간<input type='time' id='dutyWorkerEndTime'></td>"
+					rowItem +=	"<td><input type='text' id='userDepartment' readonly><button type='button' id='userCheckBtn' value='당직근무자 찾기'></button></td>"
+					rowItem +=	"<td><input type='text' id='userRank' readonly></td>"
+					rowitem +=	"<td><input type='text' id='humanName' readonly></td>"
+					rowitem +=	"<td><input type='hidden' id='dutyWorkerNote' value='''></td>"
+					rowitem +=	"<td><input type='hidden' id='dutyWorkerApprovalStatus' value='C'></td>"
+					rowItem += 	"<td> <button type='button' class='btn btn-danger'> <i class='fa fa-minus'></i> </button> </td>"
+					rowitem += "</tr>"
+					
+				$('#dutyWorkerForm').append(rowItem);
+			})
 				
 			// 행 삭제
-			$('#dutyWorkerForm').on("click", "button", function() {
+			$('input[name="removeWindow"]').on("click", "button", function() {
 				console.log('dutyWorkerForm-button');
 				
 			    $(this).closest("tr").remove()
@@ -101,80 +105,52 @@
 				
 				<form name="dutyWorkerForm" id="dutyWorkerForm">
 				
-					<table>
+					<table class="table table-hover">
 						<thead>
 							<tr>
-								<td>당직근무 기간</td>
-							</tr>
-							<tr>
-								<td>당직근무 요일 </td>
-							</tr>
-							<tr>
-								<td>당직근무 시간</td>
-							</tr>
-							<tr>
-								<td>당직근무자 부서</td>
-							</tr>
-							<tr>
-								<td>당직근무자 직급</td>
-							</tr>
-							<tr>
-								<td>당직근무자 성명</td>
+								<th>근무 기간</th>
+								<th>근무 요일 </th>
+								<th>근무 시간</th>
+								<th>부서</th>
+								<th>직급</th>
+								<th>성명</th>
+								<th>추가</th>
+								<th>제거</th>
 							</tr>
 						</thead>
-						<tr>
-							<td>
-								<input type="date" id="dutyWorkerDate">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<select id="dutyWorkerDay">
-									<option value="doNotHaveData" selected>===선택====</option>
-									<option>월요일</option>
-									<option>화요일</option>
-									<option>수요일</option>
-									<option>목요일</option>
-									<option>금요일</option>
-									<option>토요일</option>
-									<option>일요일</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="time" id="dutyWorkerStartTime">&nbsp;-&nbsp;
-								<input type="time" id="dutyWorkerEndTime">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="text" id="userDepartment" readonly>
-								<button type="button" id="userCheckBtn" value="당직근무자 찾기"></button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="text" id="userRank" readonly>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="text" id="humanName" readonly>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<!-- 성명코드 -->
-								<input type="hidden" id="personnelNumber">
-								<!-- 비고란 -->
-								<input type="hidden" id="dutyWorkerNote" value=" ">
-								<!-- 승인여부란 -->
-								<input type="hidden" id="dutyWorkerApprovalStatus" value="C">
-							</td>
-						</tr>
+						<tbody>
+							<tr>
+									<td><input type="date" id="dutyWorkerDate" ></td>
+									<td><select id="dutyWorkerDay" >
+										<option value="doNotHaveData" selected>===선택====</option>
+										<option>월요일</option>
+										<option>화요일</option>
+										<option>수요일</option>
+										<option>목요일</option>
+										<option>금요일</option>
+										<option>토요일</option>
+										<option>일요일</option>
+									</select></td>
+									<td><input type="time" id="dutyWorkerStartTime" >&nbsp;-&nbsp;<input type="time" id="dutyWorkerEndTime" ></td>
+									<td><input type="text" id="userDepartment" size="5" ></td>
+									<td><input type="text" id="userRank" size="5" ></td>
+									<td><input type="text" id="humanName" size="5" ></td>
+									<td><button type="button" name="inputWindow"  class="btn btn-default btn-sm">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button></td>
+									<td><button type="button" name="removeWindow" class="btn btn-default btn-sm">
+										<span  class="glyphicon glyphicon-minus"></span>
+									</button></td>
+									<td><button type="button" name="userCheckBtn" class="btn btn-default btn-sm">근무자 찾기</button></td>
+									<!-- 성명코드 -->
+									<td><input type="hidden" id="personnelNumber"></td>
+									<!-- 비고란 -->
+									<td><input type="hidden" id="dutyWorkerNote" value=" "></td>
+									<!-- 승인여부란 -->
+									<td><input type="hidden" id="dutyWorkerApprovalStatus" value="C" ></td>
+							</tr>
+						</tbody>
 					</table>
-					
 				</form>
 							
 				</div>

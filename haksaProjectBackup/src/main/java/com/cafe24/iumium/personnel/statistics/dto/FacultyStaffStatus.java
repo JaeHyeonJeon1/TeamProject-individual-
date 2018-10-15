@@ -1,5 +1,5 @@
 // 2018.10.13 28기 전재현
-package com.cafe24.iumium.personnel.statistics.Dto;
+package com.cafe24.iumium.personnel.statistics.dto;
 
 public class FacultyStaffStatus {
 

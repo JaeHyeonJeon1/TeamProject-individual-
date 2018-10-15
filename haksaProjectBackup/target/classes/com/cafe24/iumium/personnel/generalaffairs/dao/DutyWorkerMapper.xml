@@ -52,4 +52,13 @@
     	WHERE dept_code = #{deptCode}
     	ORDER BY dept_code ASC
     </select>
+    
+    <!-- 승인처리 -->
+    <update id="acknowledgmentList" parameterType="java.util.List" >
+    	<foreach collection="list" item="row" index="index" separator=";">
+    		UPDATE SET ilban_duty_worker.duty_worker_Approval_status = Y
+    		WHERE appointment_school_personnel_number = #{row.}
+    		AND duty_worker_day_of_the_week = #{row.}
+    	</foreach>
+    </update>
 </mapper>

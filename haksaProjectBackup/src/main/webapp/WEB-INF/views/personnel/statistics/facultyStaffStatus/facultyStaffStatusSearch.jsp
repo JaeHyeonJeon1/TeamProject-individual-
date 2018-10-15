@@ -27,9 +27,6 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
-		<script>
-			
-		</script>
 	</head>
 	
 	<script type="text/javascript">
@@ -55,13 +52,10 @@
 					<table>
 						<tr>
 							<td>
-								기준일자
-								<select>
-									<option id="theRemainingYears" value="${facultyStaffStatusSearchYear+1}-04-02">${facultyStaffStatusSearchYear+1}-04-02이전</option>
-									<c:forEach var="row" begin="${facultyStaffStatusSearchYear}" end="${facultyStaffStatusSearchYear+5}"step="1">
-										<option>${row}</option>
-									</c:forEach>
-								</select>
+								기준일자 
+								<c:forEach var="row"  items="${year }">
+									${row }
+								</c:forEach>
 							</td>
 						</tr>
 						<tr>

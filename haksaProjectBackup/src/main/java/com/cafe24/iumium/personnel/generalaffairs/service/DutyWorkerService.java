@@ -55,4 +55,6 @@ public class DutyWorkerService {
 		
 		return dutyWorkerDao.searchUsertCheckList(typeCode);
 	}
+	
+	// 승인처리
 }

@@ -1,5 +1,5 @@
 // 2018.10.14 28기 전재현
-package com.cafe24.iumium.personnel.statistics.Dao;
+package com.cafe24.iumium.personnel.statistics.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.iumium.common.dto.JobGroupCode;
-import com.cafe24.iumium.personnel.statistics.Dto.FullTimeTeacher;
+import com.cafe24.iumium.personnel.statistics.dto.FullTimeTeacher;
 
 @Repository
 public class FullTimeTeacherDao {
@@ -16,7 +16,7 @@ public class FullTimeTeacherDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	final String nameSpace = "com.cafe24.iumium.personnel.generalaffairs.dao.RewardTeachersMapper.";
+	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.RewardTeachersMapper.";
 	
 	// 그룹리스트
 	public List<JobGroupCode> groupCodeList() {

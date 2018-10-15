@@ -93,4 +93,21 @@ public class DutyWorkerController {
 		return null;
 	}
 	
+	// 승인 처리
+	@RequestMapping(value="/personnel/generalAffairsManagement/dutyWorker/acknowledgmentBtn", method = RequestMethod.POST)
+	public String acknowledgmentModify(List<String> acknowledgmentList) {
+		System.out.println("dutyWorkerController-acknowledgmentModify");
+		
+		
+		
+		return null;
+	}
+	
+	// 당직 입력창
+	@RequestMapping(value="/personnel/generalAffairsManagement/dutyWorker/dutyWorkerInsert", method = RequestMethod.GET)
+	public String dutyWorkerInsert() {
+		System.out.println("dutyWorkerController-dutyWorkerInsert");
+		
+		return "personnel/generalAffairsManagement/dutyWorker/dutyWorkerInsert";
+	}
 }

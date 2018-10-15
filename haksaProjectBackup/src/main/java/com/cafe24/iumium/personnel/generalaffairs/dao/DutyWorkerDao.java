@@ -55,4 +55,11 @@ public class DutyWorkerDao {
 		
 		return sqlSessionTemplate.selectList(nameSpace + "searchUserList" ,typeCode);
 	}
+	
+	// 승인처리
+	public List<String> acknowledgmentModify(List<String> acknowledgmentList) {
+		System.out.println("DutyWorkerDao-acknowledgmentModify");
+		
+		return sqlSessionTemplate.selectList(nameSpace + "searchUserList" ,acknowledgmentList);
+	}
 }
