@@ -109,8 +109,10 @@
 				$('.dutyWorkerInsert').click(function() {
 					
 					location.href= '/personnel/generalAffairsManagement/dutyWorker/dutyWorkerInsert' ;
-				});			
-			});
+				});		
+				
+		});
+				
 		</script>
 	</head>
 	

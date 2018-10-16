@@ -13,6 +13,8 @@
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
@@ -37,27 +39,37 @@
 				console.log('holidayInsert-holidayInsertBtn');
 				
 				// 휴일구분 검사
-				if($('#holidayCategory').val().length < 1) {
+				if($('#holidayCategory').val().length < 2) {
 					console.log('holidayInsert-holidayCategory');
 					
 					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
 					$('#holidayCategory').focus();
 					
+					return false;
+					
 				// 휴일명 검사
-				} else if($('#holidayName').val().length < 1) {
+				} else if($('#holidayName').val().length < 2) {
 					console.log('holidayInsert-holidayCategoryHellper');
 					
 					$('#holidayCategoryHellper').html('');
 					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
 					$('#holidayName').focus();
 					
+					return false;
+					
 				// 휴일기간 검사
-				} else if($('#holidayStartDay') > $('#holidayEndDay')) {
+				} else if($('#holidayStartDay').val() > $('#holidayEndDay').val()) {
 					console.log('holidayInsert-holidayDay');
 					
 					$('#holidayNameHellper').html('');
 					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
 					$('#holidayStartDay').focus();
+					
+					return false;
+					
+				} else {
+					
+					$('#holidayDayHellper').html('');
 					
 				}
 				
@@ -79,33 +91,34 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>휴일 입력</h1>
+				<div class="page-header">
+					<h1>휴일 입력</h1>
+				</div>
 				<br><br>
+				<form action="/personnel/generalAffairsManagement/holiday/holidayInsertAction" method="POST">
 				
-				<form>
-				
-					<table>
+					<table class="table">
 						<tr>
 							<td>
-								휴일 구분 <input type="text" id="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내 입력하세요.">
-								<span id="holidayCategoryHellper"></span>
+								휴일 구분 <input type="text" id="holidayCategory" name="holidayCategory" maxlength="20" placeholder="2자이상 20자 이내.">
+								<span id="holidayCategoryHellper" class="label label-danger"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 명 <input type="text" id="holidayName" maxlength="10" placeholder="2자이상 10자 이내 입력하세요.">
-								<span id="holidayNameHellper"></span>
+								휴일 명 <input type="text" id="holidayName" name="holidayName" maxlength="10" placeholder="2자이상 10자 이내.">
+								<span id="holidayNameHellper" class="label label-danger"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								휴일 기간 <input type="date" id="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay">
-								<span id="holidayDayHellper"></span>
+								휴일 기간 <input type="date" id="holidayStartDay" name="holidayStartDay">&nbsp;-&nbsp;<input type="date" id="holidayEndDay" name="holidayEndDay" >
+								<span id="holidayDayHellper" class="label label-danger"></span>
 							</td>
 						</tr>
 						
 						<tr>
-							<td><input type="submit" id="holidayInsertBtn" value="등록"></td>
+							<td><button type="submit" id="holidayInsertBtn" class="btn btn-default btn-sm">등록</button></td>
 						</tr>
 					</table>
 					

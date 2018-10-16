@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe24.iumium.personnel.generalaffairs.dto.Holiday;
 import com.cafe24.iumium.personnel.generalaffairs.service.HolidayService;
@@ -41,15 +43,27 @@ public class HolidayController {
 	
 	// 입력처리 실행
 	@RequestMapping(value="/personnel/generalAffairsManagement/holiday/holidayInsertAction", method = RequestMethod.POST)
-	public String holidayInsertAction(Holiday holiday ,HttpSession session) {
+	public String holidayInsertAction(@ModelAttribute Holiday holiday ,HttpSession session ,RedirectAttributes redirect) {
 		System.out.println("HolidayController-holidayInsertAction");
-		System.out.println("holidayCategory :" + holiday.getHolidayCategory());
-		System.out.println("holidayName : " + holiday.getHolidayName());
-		System.out.println("holidayStartDay : " + holiday.getHolidayStartDay());
-		System.out.println("holidayEndDay : " + holiday.getHolidayEndDay());
 		
 		String userId = (String) session.getAttribute("userId");
 		
-		return "personnel/generalAffairsManagement/holiday/holidayList";
+		holiday.setPersonnelNumber(userId);
+		
+		holidayService.holidayInsert(holiday);
+		
+		redirect.addFlashAttribute("result", "입력");
+		
+		return "redirect:/personnel/generalAffairsManagement/holiday/holidayList";
+	}
+	
+	// 삭제처리 
+	@RequestMapping(value="/personnel/generalAffairsManagement/holiday/holidayDelete", method = RequestMethod.GET)
+	public String checkListDelete(String holidayNumber) {
+		System.out.println("HolidayController-checkListDelete");
+		System.out.println("holidayNumber :"+holidayNumber );
+		
+		
+		return "redirect:/personnel/generalAffairsManagement/holiday/holidayList";
 	}
 }

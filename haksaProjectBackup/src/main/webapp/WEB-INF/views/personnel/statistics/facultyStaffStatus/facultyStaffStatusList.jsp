@@ -45,36 +45,37 @@
 						<h1>교직원 현황 리스트</h1>
 					</div>
 					<br><br>
-					<c:forEach var="row" items="${facultyStaffStatusList}">
+					<c:forEach var="row" items="${searchFacultyList}">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingOne">
 										<h4 class="panel-title">
 										<a id="searchList" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											전임교원 리스트
+											${row.jobGroupName } 리스트
 										</a>
 										</h4>
 									</div>
 									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 										<div class="panel-body">
-											<c:if test=""><!-- ${facultyStaffStatusList.직군 eq ${'#searchList'}} -->
-												<c:forEach var="searchList" items="${facultyStaffStatusList}">
+											<c:forEach var="userData" items="${searchFacultyList}">
+												<c:if test="${userData.jobGroupName eq${row.jobGroupName }"><!-- ${facultyStaffStatusList.직군 eq ${'#searchList'}} -->
 													<div class="row">
 														<div class="col-sm-6 col-md-4">
 															<div class="thumbnail">
 																<img src="..." alt="...">
 																<div class="caption">
-																	<h3>이름</h3>
-																	<p>부서</p>
-																	<p>직급</p>
-																	<p>전화번호</p>
-																	<p>이메일</p>
+																	<h3>성명 : ${userData.humanName }</h3>
+																	<p>부서 : ${userData.deptNameKorean } </p>
+																	<p>팀 : ${userData.teamCode }</p>
+																	<p>직급 : ${userData.jobRankCode }</p>
+																	<p>전화번호 : ${userData.humanPhoneNumber }</p>
+																	<p>이메일 : ${userData.humanEmail }</p>
 																</div>
 															</div>
 														</div>
 													</div>
-												</c:forEach>
-											</c:if>
+												</c:if>
+											</c:forEach>
 										</div>
 									</div>
 								</div>

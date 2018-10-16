@@ -23,20 +23,25 @@ public class FacultyStaffStatusController {
 	// 교직원현황 년도 검색
 	@RequestMapping(value="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearch", method = RequestMethod.GET)
 	public String facultyStaffStatusYearList(Model model) {
-		System.out.println("FacultyStaffStatusController-selectFacultyStaffStatusList");
 		
-		String year = facultyStaffStatusServie.searchYear();
+		List<FacultyStaffStatus> saerchYear = facultyStaffStatusServie.searchYear();
 		
-		model.addAttribute("year", year);
+		model.addAttribute("saerchYear", saerchYear);
 		
 		return "personnel/statistics/facultyStaffStatus/facultyStaffStatusSearch";
 	}
 
 	// 교직원현황 검색 리스트
 	@RequestMapping(value="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearchAction", method = RequestMethod.GET)
-	public String searchfacultyStaffStatusAction(Model model ,HttpServletRequest request) {
+	public String searchfacultyStaffStatusAction(Model model ,String searchYear) {
 		System.out.println("FacultyStaffStatusController-searchfacultyStaffStatusAction");
+		System.out.println("searchYear :" +searchYear);
 		
-		return "personnel/statistics/facultyStaffStatus/facultyStaffStatusSearchAction";
+		List<FacultyStaffStatus> searchFacultyList = facultyStaffStatusServie.selectfacultyStaffStatusList(searchYear);
+		
+		model.addAttribute("searchFacultyList", searchFacultyList);
+		
+		return "personnel/statistics/facultyStaffStatus/facultyStaffStatusList";
 	}
+	
 }

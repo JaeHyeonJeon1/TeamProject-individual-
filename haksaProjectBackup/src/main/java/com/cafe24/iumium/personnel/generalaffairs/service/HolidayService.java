@@ -20,7 +20,22 @@ public class HolidayService {
 	
 	// 리스트 출력
 	public List<Holiday> holidayList() {
+		System.out.println("HolidayService-holidayList");
 		
 		return holidayDao.selectHolidayList();
+	}
+	
+	// 입력 처리
+	public void holidayInsert(Holiday holiday) {
+		System.out.println("HolidayService-holidayInsert");
+		
+		holidayDao.holidayInsert(holiday);
+	}
+	
+	// 삭제 처리
+	public void checkListDelete() {
+		System.out.println("HolidayService-checkListDelete");
+		
+		holidayDao.checkListDelete();
 	}
 }

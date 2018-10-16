@@ -5,10 +5,38 @@
 	<!-- 휴일 리스트 -->
     <select id="selectHolidayList"  resultType="com.cafe24.iumium.personnel.generalaffairs.dto.Holiday">
 		SELECT holiday_name AS holidayName
-					,holiday_category AS holidayCategory
-					,holiday_start_day AS holidayStartDay
-					,holiday_end_day AS holidayEndDay
+			,holiday_number AS holidayNumber
+			,holiday_category AS holidayCategory
+			,holiday_start_day AS holidayStartDay
+			,holiday_end_day AS holidayEndDay
 		FROM ilban_holiday
 		ORDER BY holiday_start_day ASC
     </select>
+    
+    <!-- 휴일 입력 -->
+    <insert id="holidayInsert" >
+    	INSERT INTO ilban_holiday (holiday_number
+			,appointment_school_personnel_number
+			,holiday_name
+			,holiday_category
+			,holiday_start_day
+			,holiday_end_day
+			,holiday_registration_day
+			,holiday_modification_date)
+		VALUES((SELECT MAX(holiday_number+1) AS holiday_number FROM ilban_holiday ALIAS_FOR_SUBQUERY)
+			,#{personnelNumber}
+			,#{holidayName}
+			,#{holidayCategory}
+			,#{holidayStartDay}
+			,#{holidayEndDay}
+			,LEFT(now(), 10)
+			,LEFT(now(), 10) )
+    </insert>
+    
+    <!-- 삭제 처리 -->
+    <delete id="checkListDelete">
+    	DELETE 
+    		FROM ilban_holiday 
+   		WHERE holiday_number IN
+    </delete>
 </mapper>

@@ -13,8 +13,12 @@
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
 		
@@ -28,17 +32,78 @@
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
 		<script type="text/javascript">
-		
+			var insert = '${result}';
+			
+			if(insert == '입력') {
+				
+				alert(insert+'되었습니다.');
+				
+			}
+			
 			$(document).ready(function(){
 				console.log('holidayList-script');
 				
 				// 입력 페이지 이동
-				$('#holidayListInsertBtn').click(()=>{
+				$('#holidayListInsertBtn').click(function() {
 					console.log('holidayList-holidayListInsertBtn');
 					
 					location.href= '/personnel/generalAffairsManagement/holiday/holidayInsert' ;
 				});
+			
+				// 전부 체크 & 해제
+				$('#holidayListAll').click(function() {
+					
+					if($('#holidayListAll').is(':checked') ) {
+						
+						$('input[name*="holidayList[]"]').prop('checked', true);
+						
+					} else {
+						
+						$('input[name*="holidayList[]"]').prop('checked', false);
+					}
+					
+				});
 				
+				// 전체 체크박스 해제 및 체크
+				$('.holidayListCheckbox').click(function(){
+					
+					var checkboxLength =  "$('name='holidayList[]'').length";
+					
+					if($('input[name*="holidayList[]"]:checked').length == checkboxLength) {
+						
+						$('#holidayListAll').prop('checked', true);
+						
+					} else {
+						
+						$('#holidayListAll').prop('checked', false);
+						
+					}
+					
+				});
+				
+				
+				// 체크 리스트 삭제
+				$('#holidayDeleteBtn').click(function(){
+					
+					var checkRow = '';
+					
+					$('input[name*="holidayList[]"]:checked').each(function(){
+						
+						checkRow = checkRow + $('this').val()+"," ;
+					});
+					
+					if( checkRow == '' ) {
+						
+						alert("삭제할 대상을 선택하세요.");
+					    return false;
+
+					}
+					if(confirm("삭제 하시겠습니까?")) {
+						
+						location.href="/personnel/generalAffairsManagement/holiday/holidayDelete?holidayNumber="+checkRow;
+					}
+					
+				});
 			});
 		</script>
 	</head>
@@ -56,22 +121,26 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>휴일 리스트</h1>
-				<br><br>
+				<div class="page-header">
+					<h1>휴일 리스트</h1>
+				</div>
 				
-				<button id="holidayListInsertBtn">휴일 등록</button>
-				<table border="">
+				<button type="button" id="holidayListInsertBtn" class="btn btn-default btn-sm">휴일 등록</button>
+				<button type="button" id="holidayDeleteBtn"  class="btn btn-default btn-sm">삭제</button>
+				<table class="table table-hover">
 			        <thead>
 			            <tr>
-							<td>휴일 구분</td>
-							<td>휴일 명</td>
-							<td>휴일시작 일자</td>
-							<td>휴일종료 일자</td>
+			            	<th><input type="checkbox" name="holidayListAll" id="holidayListAll"></th>
+							<th>휴일 구분</th>
+							<th>휴일 명</th>
+							<th>휴일시작 일자</th>
+							<th>휴일종료 일자</th>
 			            </tr>
 			        </thead>
 			        <tbody>
 	            		<c:forEach var="row" items="${holidayList}">
 			                <tr>
+			                	<td><input type="checkbox" name="holidayList[]" class="holidayListCheckbox" value="${row.holidayNumber }"></td>
 			                    <td>${row.holidayCategory }</td>
 			                    <td>${row.holidayName }</td>
 			                    <td>${row.holidayStartDay }</td>

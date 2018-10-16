@@ -31,12 +31,12 @@
         <!-- 
         	외부에서 작업할 때
          -->
-        <property name="url" value="jdbc:mariadb://iumium.cafe24.com:3306/iumium?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="url" value="jdbc:mariadb://zwogus315.cafe24.com:3306/zwogus315?useUnicode=true&amp;characterEncoding=utf8"/>
         <!-- cafe24에 호스팅 할 때
-        	<property name="url" value="jdbc:mariadb://localhost:3306/iumium?useUnicode=true&amp;characterEncoding=utf8"/> 
+        	<property name="url" value="jdbc:mariadb://localhost:3306/zwogus315?useUnicode=true&amp;characterEncoding=utf8"/> 
         -->
-        <property name="username" value="iumium"/>
-        <property name="password" value="darkhosoon1!"/>
+        <property name="username" value="zwogus315"/>
+        <property name="password" value="wjswogus123"/>
     </bean>
     
         <!-- mybatis설정 1. SqlSessionFactory -->
@@ -51,13 +51,7 @@
            		<value>classpath:com/cafe24/iumium/common/dao/CommonCodeMapper.xml</value>
            		<value>classpath:com/cafe24/iumium/schoolregister/code/dao/SchoolRegisterCodeMapper.xml</value>
            		<value>classpath:com/cafe24/iumium/lesson/lecture/dao/LessonLectureMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/HolidayMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/VehicleMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/VacationMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/ApplicationTrainingMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/DutyWorkerMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/RewardTeachersMapper.xml</value>
-           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/TeachersWrittenApologyMapper.xml</value>
+           		<value>classpath:com/cafe24/iumium/personnel/generalaffairs/dao/*Mapper.xml</value>
            		<value>classpath:com/cafe24/iumium/manage/lecture/dao/ManageLectureCodeMapper.xml</value>
             </list>
         </property>

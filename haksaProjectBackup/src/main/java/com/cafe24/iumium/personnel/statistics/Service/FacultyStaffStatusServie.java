@@ -17,17 +17,18 @@ public class FacultyStaffStatusServie {
 	@Autowired
 	private FacultyStaffStatusDao facultyStaffStatusDao;
 	
-	// 현재 년도 구하기
-	public String searchYear() {
-		System.out.println("FacultyStaffStatusServie-FacultyStaffStatusDate");
+	// 검색년도 교직원 리스트
+	public List<FacultyStaffStatus> selectfacultyStaffStatusList(String searchYear) {
+		System.out.println("FacultyStaffStatusServie-selectfacultyStaffStatusList");
+		System.out.println("searchYear :" +searchYear);
 		
-		return facultyStaffStatusDao.searchFacultyStaffStatusYear();
+		return facultyStaffStatusDao.selectFacultyStaffStatusList(searchYear);
 	}
 	
-	// 검색년도 교직원 리스트
-	public List<FacultyStaffStatus> selectfacultyStaffStatusList(int selectYear) {
-		System.out.println("FacultyStaffStatusServie-selectfacultyStaffStatusList");
+	// 날짜 검색
+	public List<FacultyStaffStatus> searchYear() {
+		System.out.println("FacultyStaffStatusServie-searchYear");
 		
-		return facultyStaffStatusDao.selectFacultyStaffStatusList(selectYear);
+		return facultyStaffStatusDao.searchYear();
 	}
 }

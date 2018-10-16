@@ -100,7 +100,9 @@
 	
 				<div class="container-fluid">
 				
-				<h1>당직근무조 입력</h1>
+				<div class="page-header">
+					<h1>당직근무조 입력</h1>
+				</div>
 				<br><br>
 				
 				<form name="dutyWorkerForm" id="dutyWorkerForm">

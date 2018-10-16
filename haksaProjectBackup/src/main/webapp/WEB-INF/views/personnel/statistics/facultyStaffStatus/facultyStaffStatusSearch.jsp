@@ -16,6 +16,8 @@
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
 		
 		<!-- Custom fonts for this template-->
@@ -27,6 +29,22 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
+		<script>
+			$(document).ready(function(){
+				
+				// 검색 버튼 클릭
+				$('#saerchYearBtn').click(function() {
+					
+					if($('#searchYear').val() == 'nullYear') {
+						
+						$('#searchYearHellper').text('검색기간을 선택하세요');
+						
+						return false;
+					}
+					
+				})
+			})
+		</script>
 	</head>
 	
 	<script type="text/javascript">
@@ -53,14 +71,19 @@
 						<tr>
 							<td>
 								기준일자 
-								<c:forEach var="row"  items="${year }">
-									${row }
-								</c:forEach>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="submit" value="검색">
+								<select id="searchYear">
+									<option value="nullYear">===선택===</option>
+									<c:forEach var="row" begin="${saerchYear.yearList }" end="(${saerchYear.yearList}-5)" step="-1">
+										<option>${row }-04-02</option>
+									</c:forEach>
+									<!-- <option>2014-04-02</option>
+									<option>2015-04-02</option>
+									<option>2016-04-02</option>
+									<option>2017-04-02</option>
+									<option>2018-04-02</option> -->
+								</select>
+								<button type="submit" id="saerchYearBtn" class="btn btn-default btn-sm">search</button>
+								<span id="searchYearHellper" class="label label-danger"></span>
 							</td>
 						</tr>
 					</table>
