@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.iumium.personnel.generalaffairs.dto.ApplicationTraining;
+import com.cafe24.iumium.personnel.generalaffairs.dto.TrainingCode;
 
 @Repository
 public class ApplicationTrainingDao {
@@ -23,5 +24,12 @@ public class ApplicationTrainingDao {
 		
 		return sqlSessionTemplate.selectList(nameSpace + "selectTrainingList");
 		
+	}
+	
+	// 연수코드 리스트
+	public List<TrainingCode> trainingCodeList() {
+		System.out.println("ApplicationTrainingDao-trainingCodeList");
+		
+		return sqlSessionTemplate.selectList(nameSpace + "trainingCodeList");
 	}
 }

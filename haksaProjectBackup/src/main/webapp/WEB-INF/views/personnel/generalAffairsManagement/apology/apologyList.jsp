@@ -35,16 +35,18 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>시말서 리스트</h1>
+				<div class="page-header">
+					<h1>시말서 리스트</h1>
+				</div>
 				<br><br>
-				<table border="">
+				<table class="table table-hover">
 			        <thead>
 			            <tr>
-			            	<td>부서 명</td>
-							<td>직급 명</td>
-							<td>성명</td>
-							<td>시말서 제출여부</td>
-							<td>등록일자</td>
+			            	<th>부서 명</th>
+							<th>직급 명</th>
+							<th>성명</th>
+							<th>시말서 제출여부</th>
+							<th>등록일자</th>
 			            </tr>
 			        </thead>
 			        <tbody>

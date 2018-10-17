@@ -1,4 +1,4 @@
-<!-- 2018.10.08 28기 전재현 -->
+<!-- 2018.10.17 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -9,7 +9,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-		<title>holiday List</title>
+		<title>holiday Insert</title>
+		
+		<script src="/resources/vendor/jquery/jquery.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +31,53 @@
 	
 	</head>
 	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			console.log('holidayInsert-script');
+			
+			$('#holidayInsertBtn').click(function() {
+				console.log('holidayInsert-holidayInsertBtn');
+				
+				// 휴일구분 검사
+				if($('#holidayCategory').val().length < 2) {
+					console.log('holidayInsert-holidayCategory');
+					
+					$('#holidayCategoryHellper').html('2글자 이상 입력하세요');
+					$('#holidayCategory').focus();
+					
+					return false;
+					
+				// 휴일명 검사
+				} else if($('#holidayName').val().length < 2) {
+					console.log('holidayInsert-holidayCategoryHellper');
+					
+					$('#holidayCategoryHellper').html('');
+					$('#holidayNameHellper').html('2글자 이상 입력하세요.');
+					$('#holidayName').focus();
+					
+					return false;
+					
+				// 휴일기간 검사
+				} else if($('#holidayStartDay').val() > $('#holidayEndDay').val()) {
+					console.log('holidayInsert-holidayDay');
+					
+					$('#holidayNameHellper').html('');
+					$('#holidayDayHellper').html('날짜 설정이 틀렸습니다');
+					$('#holidayStartDay').focus();
+					
+					return false;
+					
+				} else {
+					
+					$('#holidayDayHellper').html('');
+					
+				}
+				
+			});
+			
+		});
+	</script>
+	
 	<body id="page-top">
 	
 		<jsp:include page="/WEB-INF/views/module/nav.jsp"/>
@@ -40,51 +91,38 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>차량운행 신청 리스트</h1>
+				<div class="page-header">
+					<h1>연수 신청</h1>
+				</div>
 				<br><br>
-				<table border="">
-			        <thead>
-			            <tr>
-			            	<th><input type="checkbox"  id="checkList"></td>
-							<th>부서 명</th>
-							<th>직급 명</th>
-							<th>성명</th>
-							<th>차량 번호</th>
-							<th>차량종류</th>
-							<th>차량 운행목적</th>
-							<th>차량 승인 여부</th>
-							<th>등록일자</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-	            		<c:forEach var="row" items="${vehicleList }">
-							<tr>
-								<td><input type="checkbox" ></td>
-								<td>${row.deptName }</td>
-								<td>${row.rankName }</td>
-								<td>${row.humanName }</td>
-								<td>${row.vehicleNumber }</td>
-								<td>${row.vehicleType }</td>
-								<td>${row.vehiclePurpose }</td>
-								<c:choose>
-									<c:when test="${row.vehicleApprovalStatus eq 'C' }" >
-										<td>확인중</td>
-									</c:when>
-									
-									<c:when test="${row.vehicleApprovalStatus eq 'Y' }" >
-										<td>승인완료</td>
-									</c:when>
-									
-									<c:when test="${row.vehicleApprovalStatus eq 'N' }" >
-										<td>승인불가</td>
-									</c:when>
-								</c:choose>
-								<td>${row.vehicleRegistrationDay }</td>
-							</tr>
-						</c:forEach>
-	        		</tbody>
-	    		</table>
+				<form action="/personnel/generalAffairsManagement/holiday/holidayInsertAction" method="POST">
 				
+					<table class="table">
+						<thead>
+							<tr>
+								<th>연수 기간</th>
+								<th>연수 목록</th>
+								<th>연수 목적</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="date" id="trainingStartDate">&nbsp;-&nbsp;<input type="date" id="trainingEndDate">
+								<td>
+									<select>
+										<option value="nullData">===선택===</option>
+										<c:forEach var="row" items="${trainingCode }">
+											<option value="${trainingCode }">${row.trainingCodeName }(${trainingHomeAndAbroadDivision })</option>
+										</c:forEach>
+									</select>
+								</td>
+								<td><input type="text" id="trainingPurpose"></td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</form>
+							
 				</div>
 				<!-- /.container-fluid -->
 	

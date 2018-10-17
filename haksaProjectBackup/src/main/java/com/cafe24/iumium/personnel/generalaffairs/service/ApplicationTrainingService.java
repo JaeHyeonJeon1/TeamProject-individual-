@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.iumium.personnel.generalaffairs.dao.ApplicationTrainingDao;
 import com.cafe24.iumium.personnel.generalaffairs.dto.ApplicationTraining;
+import com.cafe24.iumium.personnel.generalaffairs.dto.TrainingCode;
 
 @Service
 @Transactional
@@ -23,5 +24,12 @@ public class ApplicationTrainingService {
 		
 		return applicationTrainingDao.selectTrainingList();
 		
+	}
+	
+	// 연수코드 
+	public List<TrainingCode> trainingCodeList() {
+		System.out.println("Service-trainingCodeList()");
+		
+		return applicationTrainingDao.trainingCodeList();
 	}
 }

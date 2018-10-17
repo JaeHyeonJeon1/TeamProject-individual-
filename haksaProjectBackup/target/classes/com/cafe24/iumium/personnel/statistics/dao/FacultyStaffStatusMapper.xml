@@ -28,14 +28,14 @@
 			ON ilban_appointment.dept_code = haksa_department.dept_code
 		INNER JOIN haksa_team
 			ON ilban_appointment.team_code = haksa_team.team_code
-		INner JOIN haksa_job_group
+		INNER JOIN haksa_job_group
 			ON ilban_appointment.job_group_code = haksa_job_group.job_group_code
 		WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term < #{searchYear} 
 			AND ilban_appointment_permanent.appointment_permanent_appointment_end_term > #{searchYear} )
 		OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term < #{searchYear}
 			AND ilban_appointment_temporary.appointment_temporary_appointment_end_term < #{searchYear} )
 		OR (ilban_other_appointment.other_appointment_contract_start_term < #{searchYear}
-		AND ilban_other_appointment.other_appointment_contract_end_term > #{searchYear} )
+			AND ilban_other_appointment.other_appointment_contract_end_term > #{searchYear} )
 		AND ilban_human.country_code = 82
 		ORDER BY haksa_job_rank.job_rank_name_korean ASC
     </select>

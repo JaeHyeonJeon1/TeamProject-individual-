@@ -3,35 +3,19 @@ package com.cafe24.iumium.personnel.generalaffairs.dto;
 
 public class ApplicationTraining {
 
-	/*
-	 * 연수신청 번호
-	 * 교직원 번호
-	 * 연수코드
-	 * 연수코드 명
-	 * 연수 시작 일자
-	 * 연수 종료 일자
-	 * 연수 목적
-	 * 승인 여부
-	 * 시스템등록 일자
-	 * 최종수정 일자
-	 * 부서 명
-	 * 직급 명
-	 * 성명
-	 */
-	
-	private int trainingNo;
-	private String personnelNumber;
-	private String trainingCode;
-	private String trainingCodeName;
-	private String trainingStartDate;
-	private String trainingEndDate;
-	private String trainingPurpose;
-	private String trainingApprovalStatus;
-	private String trainingRegistrationDay;
-	private String trainingModificationDate;
-	private String deptNameKorean;
-	private String jobRankNameKorean;
-	private String humanName;
+	private int trainingNo;	// 연수신청 번호
+	private String personnelNumber;	// 교직원 번호
+	private String trainingCode;	// 연수코드
+	private String trainingCodeName;	// 연수코드 명
+	private String trainingStartDate;	// 연수 시작 일자
+	private String trainingEndDate;	// 연수 종료 일자
+	private String trainingPurpose;	// 연수 목적
+	private String trainingApprovalStatus;	// 승인 여부
+	private String trainingRegistrationDay;	// 시스템등록 일자
+	private String trainingModificationDate;	// 최종수정 일자
+	private String deptNameKorean;	// 부서 명
+	private String jobRankNameKorean;	// 직급 명
+	private String humanName;	// 성명
 	
 	public int getTrainingNo() {
 		return trainingNo;

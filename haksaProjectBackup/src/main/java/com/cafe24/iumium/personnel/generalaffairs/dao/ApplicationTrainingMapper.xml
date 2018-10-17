@@ -25,4 +25,12 @@
 			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
 		ORDER BY ilban_application_for_training.application_for_training_registration_day DESC
     </select>
+    
+    <select id="trainingCodeList" resultType="com.cafe24.iumium.personnel.generalaffairs.dto.TrainingCode">
+    	SELECT training_code AS trainingCode
+    		,training_code_name AS trainingCodeName
+    		,training_home_and_abroad_division AS trainingHomeAndAbroadDivision
+    	FROM ilban_training
+    	WHERE training_use_existence_nonexistence = 'Y'
+    </select>
 </mapper>

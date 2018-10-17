@@ -11,10 +11,14 @@
 	
 		<title>training List</title>
 		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
-		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Custom fonts for this template-->
 		<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,7 +28,56 @@
 		
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
-	
+		
+		<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			// 리스트 이동
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				var target = $(e.target).attr("href") // activated tab
+			});
+			
+			// 전부 체크 & 해제
+			$('#trainingApprovalStatusListAll').click(function() {
+				
+				if($('#trainingApprovalStatusListAll').is(':checked') ) {
+					
+					$("input[name='trainingApprovalStatusList']").prop('checked', true);
+					
+				} else {
+					
+					$("input[name='trainingApprovalStatusList']").prop('checked', false);
+				}
+				
+			});
+			
+			// 전체 체크박스 해제 및 체크
+			$('.trainingApprovalStatusList').click(function(){
+				
+				if($("input[name='trainingApprovalStatusList']:checked").length == $("input[name='trainingApprovalStatusList']").length) {
+					
+					$('#trainingApprovalStatusListAll').prop('checked', true);
+					
+				} else {
+					
+					$('#trainingApprovalStatusListAll').prop('checked', false);
+					
+				}
+
+			});
+			
+			// 입력처리
+			$('.dutyWorkerInsert').click(function() {
+				
+				location.href= '/personnel/generalAffairsManagement/training/trainingInsert';
+				
+			});
+			
+			
+		});
+		
+		</script>
 	</head>
 	
 	<body id="page-top">
@@ -40,51 +93,168 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>연수신청 리스트</h1>
-				<br><br>
-				<table border="">
-			        <thead>
-			            <tr>
-			            	<td>연수시작 일자</td>
-							<td>연수종료 일자</td>
-							<td>부서 명</td>
-							<td>직급 명</td>
-							<td>성명</td>
-							<td>연수 구분</td>
-							<td>연수 목적</td>
-							<td>승인 여부</td>
-							<td>등록일</td>
-			            </tr>
-			        </thead>
-			        <tbody>
-	            		<c:forEach var="row" items="${trainingList}">
-			                <tr>
-			                    <td>${row.trainingStartDate }</td>
-			                    <td>${row.trainingEndDate }</td>
-			                    <td>${row.deptNameKorean }</td>
-			                    <td>${row.jobRankNameKorean }</td>
-			                    <td>${row.humanName }</td>
-			                    <td>${row.trainingCodeName }</td>
-			                    <td>${row.trainingPurpose }</td>
-			                    <c:choose>
-									<c:when test="${row.trainingApprovalStatus eq 'C' }" >
-										<td>확인중</td>
-									</c:when>
-									
-									<c:when test="${row.trainingApprovalStatus eq 'Y' }" >
-										<td>승인완료</td>
-									</c:when>
-									
-									<c:when test="${row.trainingApprovalStatus eq 'N' }" >
-										<td>승인불가</td>
-									</c:when>
-								</c:choose>
-			                    <td>${row.trainingRegistrationDay }</td>
-			                </tr>
-			            </c:forEach>
-	        		</tbody>
-	    		</table>
-				
+					<!-- Nav tabs -->
+					<div class="tab-content">
+					
+						<div role="tabpanel" class="tab-pane active" id="trainingApproval">
+							<div class="page-header">
+								<h2>연수승인 리스트</h2>
+							</div>
+							<br><br>
+							
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active"><a href="#trainingApproval" aria-controls="approvalOfDutyOnDuty" role="tab" data-toggle="tab">당직근무 승인완료 리스트</a></li>
+								<li role="presentation"><a href="#trainingApprovalStatus" aria-controls="approvalStatusOfDutyCheck" role="tab" data-toggle="tab">당직근무 승인여부 리스트</a></li>
+								<li role="presentation"><a href="#unableApproveTraining" aria-controls="unableDutyWorkOnTime" role="tab" data-toggle="tab">당직근무 불가 리스트</a></li>
+								<li><button type="button" class="btn btn-default btn-sm" name="dutyWorkerInsert" >입력하기</button></li>
+							</ul>
+							
+							<table class="table table-hover">
+						        <thead>
+						            <tr>
+						            	<th>연수시작 일자</th>
+										<th>연수종료 일자</th>
+										<th>부서 명</th>
+										<th>직급 명</th>
+										<th>성명</th>
+										<th>연수 구분</th>
+										<th>연수 목적</th>
+										<th>승인 여부</th>
+										<th>등록일</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${trainingList}">
+						        		<c:if test="${row.trainingApprovalStatus eq 'Y' }">
+							                <tr>
+							                    <td>${row.trainingStartDate }</td>
+							                    <td>${row.trainingEndDate }</td>
+							                    <td>${row.deptNameKorean }</td>
+							                    <td>${row.jobRankNameKorean }</td>
+							                    <td>${row.humanName }</td>
+							                    <td>${row.trainingCodeName }</td>
+							                    <td>${row.trainingPurpose }</td>
+							                    <c:choose>
+													<c:when test="${row.trainingApprovalStatus eq 'Y' }" >
+														<td>승인완료</td>
+													</c:when>
+												</c:choose>
+							                    <td>${row.trainingRegistrationDay }</td>
+							                </tr>
+						                </c:if>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+						
+						<div role="tabpanel" class="tab-pane active" id="trainingApprovalStatus">
+							<div class="page-header">
+								<h2>연수승인 여부 리스트</h2>
+							</div>
+							<br><br>
+							
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation"><a href="#trainingApproval" aria-controls="approvalOfDutyOnDuty" role="tab" data-toggle="tab">당직근무 승인완료 리스트</a></li>
+								<li role="presentation" class="active"><a href="#trainingApprovalStatus" aria-controls="approvalStatusOfDutyCheck" role="tab" data-toggle="tab">당직근무 승인여부 리스트</a></li>
+								<li role="presentation"><a href="#unableApproveTraining" aria-controls="unableDutyWorkOnTime" role="tab" data-toggle="tab">당직근무 불가 리스트</a></li>
+								<li><button type="button" class="btn btn-default btn-sm" class="dutyWorkerInsert"  >입력하기</button></li>
+								<li><button type="button" id="#trainingApprovalStatusApproval" class="btn btn-default btn-sm">승인</button></li>
+							</ul>
+							
+							<table class="table table-hover">
+						        <thead>
+						            <tr>
+						            	<th><input type="checkbox" id="trainingApprovalStatusListAll" class="trainingApprovalStatusListAll"></th>
+						            	<th>연수시작 일자</th>
+										<th>연수종료 일자</th>
+										<th>부서 명</th>
+										<th>직급 명</th>
+										<th>성명</th>
+										<th>연수 구분</th>
+										<th>연수 목적</th>
+										<th>승인 여부</th>
+										<th>등록일</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${trainingList}">
+						        		<c:if test="${row.trainingApprovalStatus eq 'C' }">
+							                <tr>
+							                	<td><input type="checkbox" class="trainingApprovalStatusList" name="trainingApprovalStatusList">
+							                    <td>${row.trainingStartDate }</td>
+							                    <td>${row.trainingEndDate }</td>
+							                    <td>${row.deptNameKorean }</td>
+							                    <td>${row.jobRankNameKorean }</td>
+							                    <td>${row.humanName }</td>
+							                    <td>${row.trainingCodeName }</td>
+							                    <td>${row.trainingPurpose }</td>
+							                    <c:choose>
+													<c:when test="${row.trainingApprovalStatus eq 'C' }" >
+														<td>승인중</td>
+													</c:when>
+												</c:choose>
+							                    <td>${row.trainingRegistrationDay }</td>
+							                </tr>
+						                </c:if>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+						
+						<div role="tabpanel" class="tab-pane active" id="unableApproveTraining">
+							<div class="page-header">
+								<h2>연수불가 리스트</h2>
+							</div>
+							<br><br>
+							
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation"><a href="#trainingApproval" aria-controls="approvalOfDutyOnDuty" role="tab" data-toggle="tab">당직근무 승인완료 리스트</a></li>
+								<li role="presentation"><a href="#trainingApprovalStatus" aria-controls="approvalStatusOfDutyCheck" role="tab" data-toggle="tab">당직근무 승인여부 리스트</a></li>
+								<li role="presentation" class="active"><a href="#unableApproveTraining" aria-controls="unableDutyWorkOnTime" role="tab" data-toggle="tab">당직근무 불가 리스트</a></li>
+								<li><button type="button" class="btn btn-default btn-sm" class="dutyWorkerInsert" >입력하기</button></li>
+							</ul>
+							
+							<table class="table table-hover">
+						        <thead>
+						            <tr>
+						            	<th>연수시작 일자</th>
+										<th>연수종료 일자</th>
+										<th>부서 명</th>
+										<th>직급 명</th>
+										<th>성명</th>
+										<th>연수 구분</th>
+										<th>연수 목적</th>
+										<th>승인 여부</th>
+										<th>등록일</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+				            		<c:forEach var="row" items="${trainingList}">
+					        			<c:if test="${row.trainingApprovalStatus eq 'N' }">
+							                <tr>
+							                    <td>${row.trainingStartDate }</td>
+							                    <td>${row.trainingEndDate }</td>
+							                    <td>${row.deptNameKorean }</td>
+							                    <td>${row.jobRankNameKorean }</td>
+							                    <td>${row.humanName }</td>
+							                    <td>${row.trainingCodeName }</td>
+							                    <td>${row.trainingPurpose }</td>
+							                    <c:choose>
+													<c:when test="${row.trainingApprovalStatus eq 'N' }" >
+														<td>승인불가</td>
+													</c:when>
+												</c:choose>
+							                    <td>${row.trainingRegistrationDay }</td>
+							                </tr>
+						                </c:if>
+						            </c:forEach>
+				        		</tbody>
+				    		</table>
+						</div>
+					</div>
 				</div>
 				<!-- /.container-fluid -->
 	
