@@ -33,9 +33,17 @@ public class HolidayService {
 	}
 	
 	// 삭제 처리
-	public void checkListDelete() {
+	public void checkListDelete(String checkListDelete) {
 		System.out.println("HolidayService-checkListDelete");
+		System.out.println("checkListDelete :" +checkListDelete);
 		
-		holidayDao.checkListDelete();
+		String[] deleteList = checkListDelete.split(",");
+		
+		for(int i=0; i <deleteList.length; i++) {
+			
+			holidayDao.checkListDelete(deleteList[i]);
+			
+		}
+		
 	}
 }

@@ -18,8 +18,6 @@
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
-		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
-		
 		<!-- Custom fonts for this template-->
 		<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 		
@@ -39,77 +37,90 @@
 					var target = $(e.target).attr("href") // activated tab
 				});
 				
-				// 승인완료리스트 모두 체크&풀기
-				$('#allCheckboxChoice').click(function() {
+				// 승인완료 리스트 모두 체크&풀기
+				$('#approvalOfDutyOnDutyListAll').click(function(){
 					
-					if($('#allCheckboxChoice').is(':checked') ) {
+					if($('#approvalOfDutyOnDutyListAll').is(':checked') ) {
 						
-						$('input[name*="userBox[]"]').prop('checked', true);
+						$('input[name*="approvalOfDutyOnDutyList"]').prop('checked', true);
 						
 					} else {
 						
-						$('input[name*="userBox[]"]').prop('checked', false);
+						$('input[name*="approvalOfDutyOnDutyList"]').prop('checked', false);
 					}
 					
 				});
 				
-				// 확인중리스트 모두 체크&풀기
-				$('#allCheckingBoxChoice').click(function() {
+				// 승인완료 리스트 하나 해제 시 전부 체크 해제
+				$('.approvalOfDutyOnDutyList').click(function() {
 					
-					if($('#allCheckingBoxChoice').is(':checked') ) {
+					if( $('input[name*="approvalOfDutyOnDutyList"]:checked').length == $('input[name*="approvalOfDutyOnDutyList"]').length ) {
 						
-						$('input[name*="userCheckingBox[]"]').prop('checked', true);
+						$('#approvalOfDutyOnDutyListAll').prop('checked', true);
 						
 					} else {
 						
-						$('input[name*="userCheckingBox[]"]').prop('checked', false);
+						$('#approvalOfDutyOnDutyListAll').prop('checked', false);
 					}
 					
 				});
 				
-				// 승인불가리스트 모두 체크&풀기
-				$('#allDisapprovedChoice').click(function() {
+				// 승인확인중 리스트 모두 체크&풀기
+				$('#approvalStatusOfDutyCheckAll').click(function(){
 					
-					if($('#allDisapprovedChoice').is(':checked') ) {
+					if($('#approvalStatusOfDutyCheckAll').is(':checked') ) {
 						
-						$('input[name*="userDisapprovedBox[]"]').prop('checked', true);
+						$('input[name*="approvalStatusOfDutyCheckList"]').prop('checked', true);
 						
 					} else {
 						
-						$('input[name*="userDisapprovedBox[]"]').prop('checked', false);
+						$('input[name*="approvalStatusOfDutyCheckList"]').prop('checked', false);
 					}
 					
 				});
 				
-				// 승인 처리
-				$('#acknowledgmentBtn').click(function() {
+				// 승인확인중 리스트 하나 해제 시 전부 체크 해제
+				$('.approvalStatusOfDutyCheckList').click(function() {
 					
-					var checkedDataList = [];
-					
-					$('input[name="userCheckingBox[]"]:checked').each(function(i) {
+					if($('input[name*="approvalStatusOfDutyCheckList"]:checked').length == $('input[name*="approvalStatusOfDutyCheckList"]').length ) {
 						
-						checkedDataList.puch($(this).val());
-						checked
+						$('#approvalStatusOfDutyCheckAll').prop('checked', true);
+						
+					} else {
+						
+						$('#approvalStatusOfDutyCheckAll').prop('checked', false);
 					}
 					
-					$.ajax({
-						url:'/personnel/generalAffairsManagement/dutyWorker/acknowledgmentBtn'
-	    					, type:'POST'
-	    					, dataType:'JSON'
-	    					, async   : false
-	    					, data: {userList : checkedDataList}
-	    					, success: function(data){
-	    						
-	    					}
-					});
+				});
+				
+				// 승인불가 리스트 모두 체크&풀기
+				$('#unableDutyWorkOnTimeAll').click(function(){
+					
+					if($('#unableDutyWorkOnTimeAll').is(':checked') ) {
+						
+						$('input[name*="unableDutyWorkOnTimeList"]').prop('checked', true);
+						
+					} else {
+						
+						$('input[name*="unableDutyWorkOnTimeList"]').prop('checked', false);
+					}
 					
 				});
+				
+				// 승인불가 리스트 하나 해제 시 전부 체크 해제
+				$('.unableDutyWorkOnTimeList').click(function() {
 					
-				// 입력화면 이동
-				$('.dutyWorkerInsert').click(function() {
+					if($('input[name*="unableDutyWorkOnTimeList"]:checked').length == $('input[name*="unableDutyWorkOnTimeList"]').length ) {
+						
+						$('#unableDutyWorkOnTimeAll').prop('checked', true);
+						
+					} else {
+						
+						$('	#unableDutyWorkOnTimeAll').prop('checked', false);
+					}
 					
-					location.href= '/personnel/generalAffairsManagement/dutyWorker/dutyWorkerInsert' ;
-				});		
+				});
+				
 				
 		});
 				
@@ -147,7 +158,7 @@
 							<table class="table table-hover">
 						        <thead class="">
 						             <tr>
-						             	<th><input type="checkbox" id="allCheckboxChoice" class="checkbox checkbox-inline"></th>
+						             	<th><input type="checkbox" name="approvalOfDutyOnDutyListAll" id="approvalOfDutyOnDutyListAll" class="checkbox checkbox-inline"></th>
 						            	<th>근무 일자</th>
 										<th>근무 요일</th>
 										<th>근태 종류</th>
@@ -165,7 +176,7 @@
 					        		<c:forEach var="row" items="${workerList}">
 						        		<c:if test="${row.workerApprovalStatus eq 'Y' }">
 							                <tr>
-							                	<td><input id="userCheck" type="checkbox" name="userBox[]" value="${row.personnelNumber }"></td>
+							                	<td><input type="checkbox" name="approvalOfDutyOnDutyList" class="approvalOfDutyOnDutyList" value="${row.personnelNumber }"></td>
 							                    <td>${row.workerDate }</td>
 							                    <td>${row.workerDayOfTheWeek }</td>
 							                    <td>${row.workerType }</td>
@@ -205,7 +216,7 @@
 							<table class="table table-hover">
 						        <thead>
 						             <tr>
-						             	<th><input type="checkbox" id="allCheckingBoxChoice"></th>
+						             	<th><input type="checkbox" name="approvalStatusOfDutyCheckAll" id="approvalStatusOfDutyCheckAll"></th>
 						            	<th>근무 일자</th>
 										<th>근무 요일</th>
 										<th>근태 종류</th>
@@ -223,7 +234,7 @@
 					        		<c:forEach var="row" items="${workerList}">
 					        			<c:if test="${row.workerApprovalStatus eq 'C' }">
 							                <tr>
-							                	<td><input id="userCheck" type="checkbox" name="userCheckingBox[]" value="${row.personnelNumber }"></td>
+							                	<td><input type="checkbox" name="approvalStatusOfDutyCheckList" class="approvalStatusOfDutyCheckList" value="${row.personnelNumber }"></td>
 							                    <td>${row.workerDate }</td>
 							                    <td>${row.workerDayOfTheWeek }</td>
 							                    <td>${row.workerType }</td>
@@ -261,7 +272,7 @@
 							<table class="table table-hover">
 						        <thead>
 						             <tr>
-						    	        <th><input type="checkbox" id="allDisapprovedChoice"></th>
+						    	        <th><input type="checkbox" name="unableDutyWorkOnTimeAll" id="unableDutyWorkOnTimeAll"></th>
 						            	<th>근무 일자</th>
 										<th>근무 요일</th>
 										<th>근태 종류</th>
@@ -279,7 +290,7 @@
 					        		<c:forEach var="row" items="${workerList}">
 						        		<c:if test="${row.workerApprovalStatus eq 'N' }">
 							                <tr>
-							                	<td><input id="userCheck" type="checkbox" name="userDisapprovedBox[]"  value="${row.personnelNumber }"></td>
+							                	<td><input type="checkbox" name="unableDutyWorkOnTimeList" name="unableDutyWorkOnTimeList"  value="${row.personnelNumber }"></td>
 							                    <td>${row.workerDate }</td>
 							                    <td>${row.workerDayOfTheWeek }</td>
 							                    <td>${row.workerType }</td>

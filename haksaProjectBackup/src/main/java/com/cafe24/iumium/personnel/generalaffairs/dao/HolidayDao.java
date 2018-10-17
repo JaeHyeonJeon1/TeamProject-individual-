@@ -26,7 +26,7 @@ public class HolidayDao {
 	}
 	
 	// 입력 처리
-	public void holidayInsert(Holiday holiday) {
+	public void holidayInsert(Holiday holiday ) {
 		System.out.println("HolidayDao-holidayInsert");
 		
 		sqlSessionTemplate.selectList(nameSpace + "holidayInsert", holiday);
@@ -34,9 +34,10 @@ public class HolidayDao {
 	}
 	
 	// 삭제처리
-	public void checkListDelete() {
+	public void checkListDelete(String checkListDelete) {
 		System.out.println("HolidayDao-checkListDelete");
+		System.out.println("checkListDelete :" +checkListDelete);
 		
-		sqlSessionTemplate.selectList(nameSpace + "checkListDelete");
+		sqlSessionTemplate.selectList(nameSpace + "checkListDelete" ,checkListDelete);
 	}
 }

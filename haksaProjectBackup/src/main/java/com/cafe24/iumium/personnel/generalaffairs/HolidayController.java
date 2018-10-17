@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe24.iumium.personnel.generalaffairs.dto.Holiday;
@@ -46,7 +47,7 @@ public class HolidayController {
 	public String holidayInsertAction(@ModelAttribute Holiday holiday ,HttpSession session ,RedirectAttributes redirect) {
 		System.out.println("HolidayController-holidayInsertAction");
 		
-		String userId = (String) session.getAttribute("userId");
+		String userId = (String)session.getAttribute("userId");
 		
 		holiday.setPersonnelNumber(userId);
 		
@@ -59,10 +60,13 @@ public class HolidayController {
 	
 	// 삭제처리 
 	@RequestMapping(value="/personnel/generalAffairsManagement/holiday/holidayDelete", method = RequestMethod.GET)
-	public String checkListDelete(String holidayNumber) {
+	public String checkListDelete(@RequestParam(value = "checkList") String checkListDelete ,RedirectAttributes redirect) {
 		System.out.println("HolidayController-checkListDelete");
-		System.out.println("holidayNumber :"+holidayNumber );
+		System.out.println("checkListDelete :" +checkListDelete);
 		
+		holidayService.checkListDelete(checkListDelete);
+			
+		redirect.addFlashAttribute("delete", "삭제");
 		
 		return "redirect:/personnel/generalAffairsManagement/holiday/holidayList";
 	}
