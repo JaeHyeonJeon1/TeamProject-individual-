@@ -6,8 +6,6 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 		<title>faculty staff status search</title>
 		
@@ -35,7 +33,7 @@
 				// 검색 버튼 클릭
 				$('#saerchYearBtn').click(function() {
 					
-					if($('#searchYear').val() == 'nullYear') {
+					if($('#yearList').val() == '선택') {
 						
 						$('#searchYearHellper').text('검색기간을 선택하세요');
 						
@@ -71,19 +69,20 @@
 						<tr>
 							<td>
 								기준일자 
-								<select id="searchYear">
-									<option value="nullYear">===선택===</option>
-									<c:forEach var="row" begin="${saerchYear.yearList }" end="(${saerchYear.yearList}-5)" step="-1">
-										<option>${row }-04-02</option>
+								<select name="yearList">
+									<option value="선택">===선택===</option>
+									<c:forEach var="row" items="${saerchYear}">
+										<option>${row.yearList-4 }-04-02</option>
+										<option>${row.yearList-3 }-04-02</option>
+										<option>${row.yearList-2 }-04-02</option>
+										<option>${row.yearList-1 }-04-02</option>
+										<option>${row.yearList }-04-02</option>
 									</c:forEach>
-									<!-- <option>2014-04-02</option>
-									<option>2015-04-02</option>
-									<option>2016-04-02</option>
-									<option>2017-04-02</option>
-									<option>2018-04-02</option> -->
 								</select>
+								<input type="hidden" name="countryCode" value="82">
 								<button type="submit" id="saerchYearBtn" class="btn btn-default btn-sm">search</button>
 								<span id="searchYearHellper" class="label label-danger"></span>
+								
 							</td>
 						</tr>
 					</table>

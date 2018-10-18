@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.iumium.personnel.statistics.dao.FacultyStaffStatusMapper">
-
-	<!-- 교직원검색 리스트 -->
-    <select id="searchYearUserList"  resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
+    
+    <!-- 현재날짜 -->
+     <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
+     	SELECT LEFT(now(), 4) AS yearList
+     </select>
+     
+     <!-- 교직원검색 리스트 -->
+    <select id="searchYearUserList" resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
 		SELECT ilban_human.human_name AS humanName 
 			,haksa_department.dept_name_korean AS deptNameKorean
 			,haksa_team.team_name_korean AS teamNameKorean
 			,haksa_job_rank.job_rank_name_korean AS jobRankNameKorean
 			,ilban_myprofile.human_phone_number AS humanPhoneNumber
 			,ilban_myprofile.human_email AS humanEmail
-			,haksa_job_group.job_group_code AS
-			,haksa_job_group.job_group_name AS
+			,haksa_job_group.job_group_code AS jobGroupCode
+			,haksa_job_group.job_group_name AS jobGroupName
 		FROM ilban_appointment INNER JOIN ilban_human
 			ON ilban_appointment.appointment_school_personnel_number = ilban_human.student_teacher_no
-		LEFT JOIN ilban_appointment_permanent
-			ON ilban_appointment.appointment_school_personnel_number = ilban_appointment_permanent.appointment_school_personnel_number
-		LEFT JOIN ilban_appointment_temporary
-			ON ilban_appointment.appointment_school_personnel_number = ilban_appointment_temporary.appointment_school_personnel_number
-		LEFT JOIN ilban_other_appointment
-			ON ilban_appointment.appointment_school_personnel_number = ilban_other_appointment.appointment_school_personnel_number 
 		INNER JOIN haksa_job_rank
 			ON ilban_appointment.job_rank_code = haksa_job_rank.job_rank_code
 		INNER JOIN ilban_myprofile
@@ -30,18 +29,22 @@
 			ON ilban_appointment.team_code = haksa_team.team_code
 		INNER JOIN haksa_job_group
 			ON ilban_appointment.job_group_code = haksa_job_group.job_group_code
-		WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term < #{searchYear} 
-			AND ilban_appointment_permanent.appointment_permanent_appointment_end_term > #{searchYear} )
-		OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term < #{searchYear}
-			AND ilban_appointment_temporary.appointment_temporary_appointment_end_term < #{searchYear} )
-		OR (ilban_other_appointment.other_appointment_contract_start_term < #{searchYear}
-			AND ilban_other_appointment.other_appointment_contract_end_term > #{searchYear} )
-		AND ilban_human.country_code = 82
-		ORDER BY haksa_job_rank.job_rank_name_korean ASC
+		LEFT JOIN ilban_appointment_permanent
+			ON ilban_appointment.appointment_school_personnel_number = ilban_appointment_permanent.appointment_school_personnel_number
+		LEFT JOIN ilban_appointment_temporary
+			ON ilban_appointment.appointment_school_personnel_number = ilban_appointment_temporary.appointment_school_personnel_number
+		LEFT JOIN ilban_other_appointment
+			ON ilban_appointment.appointment_school_personnel_number = ilban_other_appointment.appointment_school_personnel_number 
+		<!--[CDATA[
+			WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term >= #{yearList}
+				AND ilban_appointment_permanent.appointment_permanent_appointment_end_term > #{yearList})
+			OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term >= #{yearList}
+				AND ilban_appointment_temporary.appointment_temporary_appointment_end_term > #{yearList})
+			OR (ilban_other_appointment.other_appointment_contract_start_term >= #{yearList}
+				AND ilban_other_appointment.other_appointment_contract_end_term > #{yearList})
+				AND ilban_human.country_code = #{countryCode}
+		]]-->
+		GROUP BY haksa_job_rank.job_rank_name_korean ASC
     </select>
     
-    <!-- 현재날짜 -->
-     <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
-     	SELECT LEFT(now(), 4) AS yearList
-     </select>
 </mapper>

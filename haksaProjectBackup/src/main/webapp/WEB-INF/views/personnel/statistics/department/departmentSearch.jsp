@@ -14,6 +14,8 @@
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
@@ -28,7 +30,8 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
-		<script>
+		<script type="text/javascript">
+		
 			$(document).ready(function() {
 				
 				$('searchDepartmentBtn').click(function() {
@@ -67,41 +70,46 @@
 	
 				<div class="container-fluid">
 				
-				<h1>학과 검색</h1>
-				<br><br>
-				
-				<form action="/personnel/statistics/department/departmentSearchAction" method="GET">
-					<table>
-						<tr>
-							<td>
-								기준일자
-								<select>
-									<option id="theRemainingYears" value="${(fullTimeTeacherSearchYear+1)}-04-02">${(fullTimeTeacherSearchYear+1)}-04-02이전</option>
-									<c:forEach var="searchYear" begin="${fullTimeTeacherSearchYear}" end="${(fullTimeTeacherSearchYear+5)}" step="1">
-										<option>${searchYear}-04-02</option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								검색 학과
-								<select id="searchDepartmentList">
-									<option value="Null">===선택===</option>
-									<c:forEach var="row" items="searchDepartmentList">
-										<option value="teamCode">${row.teamNameKorean}</option>
-									</c:forEach>
-								</select>
-								<input id="saerchTeamCodeHellper" type="text">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button id="searchDepartmentBtn" type="submit" value="검색"></button>
-							</td>
-						</tr>
-					</table>
-				</form>
+					<div class="page-header">
+						<h1>교직원 현황 리스트</h1>
+					</div>
+					<br><br>
+					
+					<form action="/personnel/statistics/department/departmentSearchAction" method="GET">
+						<table>
+							<tr>
+								<td>
+									기준일자
+									<select>
+										<c:forEach var="row" items="${saerchYear }">
+											<option>${row.yearList-4}-04-02</option>
+											<option>${row.yearList-3}-04-02</option>
+											<option>${row.yearList-2}-04-02</option>
+											<option>${row.yearList-1}-04-02</option>
+											<option>${row.yearList}-04-02</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									학과 검색
+									<select id="searchDepartmentList">
+										<option value="선택">===선택===</option>
+										<c:forEach var="departmentList" items="${searchDepartmentList }">
+											<option value="${departmentList.teamCode }">${departmentList.teamNameKorean}</option>
+										</c:forEach>
+									</select>
+									<span id="saerchTeamCodeHellper" ></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<button type="submit"  id="searchDepartmentBtn" value="검색"></button>
+								</td>
+							</tr>
+						</table>
+					</form>
 							
 				</div>
 				<!-- /.container-fluid -->

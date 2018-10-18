@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.iumium.personnel.generalaffairs.dao.TeachersDisciplinaryMapper">
+	
+	<!-- 교직원 징계 리스트 -->
+	<select id="selectDisciplinaryList" resultType="com.cafe24.iumium.personnel.generalaffairs.dto.TeachersDisciplinary">
+		SELECT ilban_teachers_disciplinary.teachers_disciplinary_no AS teachersDisciplinaryNo
+			,ilban_teachers_disciplinary.appointment_school_personnel_number AS personnelNumber
+			,ilban_teachers_disciplinary.teachers_disciplinary_code AS teachersDisciplinaryCode
+			,ilban_teachers_disciplinary.record_id AS recordId
+			,ilban_teachers_disciplinary.teachers_disciplinary_start_date AS teachersDisciplinaryStartDate
+			,ilban_teachers_disciplinary.teachers_disciplinary_end_date AS teachersDisciplinaryEndDate
+			,ilban_teachers_disciplinary.teachers_disciplinary_registration_day AS teachersDisciplinaryRegistrationDay
+			,ilban_teachers_disciplinary.teachers_disciplinary_modification_date AS teachersDisciplinaryModificationDate
+			,haksa_department.dept_name_korean AS deptNameKorean
+			,haksa_job_rank.job_rank_name_korean AS rankNameKorean
+			,ilban_human.human_name AS humanName
+			,ilban_reward_punishment.reward_punishment_code AS teachersDisciplinaryCode
+			,ilban_reward_punishment.reward_punishment_code_name AS PunishmentCodeName
+		FROM ilban_teachers_disciplinary INNER JOIN ilban_appointment
+			ON   ilban_teachers_disciplinary.appointment_school_personnel_number = ilban_appointment.appointment_school_personnel_number
+		INNER JOIN haksa_department
+			ON  ilban_appointment.dept_code = haksa_department.dept_code
+		INNER JOIN haksa_job_rank
+			ON ilban_appointment.job_rank_code  = haksa_job_rank.job_rank_code
+		INNER JOIN ilban_human
+			ON ilban_teachers_disciplinary.appointment_school_personnel_number = ilban_human.student_teacher_no
+		INNER JOIN ilban_reward_punishment
+			ON ilban_teachers_disciplinary.teachers_disciplinary_code  = ilban_reward_punishment.reward_punishment_code
+		ORDER BY ilban_teachers_disciplinary.teachers_disciplinary_modification_date DESC
+	</select>
+	
+	<!-- 징계 리스트 -->
+	<select id="selectPunishmentList" resultType="com.cafe24.iumium.personnel.generalaffairs.dto.Punishment">
+		SELECT reward_punishment_code AS rewardPunishmentCode
+			,reward_punishment_code_name AS rewardPunishmentCodeName
+			,reward_punishment_division AS rewardPunishmentDivision
+		FROM ilban_reward_punishment
+		WHERE reward_punishment_use_existence_nonexistence = 'Y'
+	</select>
+	
+	<!-- 입력 처리 -->
+	<insert id="disciplinaryInsert">
+		INSERT INTO ilban_teachers_disciplinary (
+			,teachers_disciplinary_no
+			,appointment_school_personnel_number
+			,teachers_disciplinary_code
+			,record_id
+			,teachers_disciplinary_start_date
+			,teachers_disciplinary_end_date
+			,teachers_disciplinary_registration_day,
+			,teachers_disciplinary_modification_date )
+		VALUES( (SELECT COUNT(teachers_disciplinary_no)+1 AS teachers_disciplinary_no FROM ilban_teachers_disciplinary ALIAS_FOR_SUBQUERY)
+			,#{personnelNumber}
+			,#{teachersDisciplinaryCode}
+			,#{recordId}
+			,#{teachersDisciplinaryStartDate}
+			,#{teachersDisciplinaryEndDate}
+			,LEFT(NOW(), 10)
+			,LEFT(NOW(), 10) )		
+	</insert>
+	
+	<!-- 교직원 번호 출력 -->
+	<select id="personnelNumber" resultType="com.cafe24.iumium.personnel.generalaffairs.dto.TeachersDisciplinary">
+		SELECT ilban_appointment.appointment_school_personnel_number AS teachersDisciplinaryNo
+		FROM ilban_appointment INNER JOIN ilban_human
+			ON ilban_appointment.appointment_school_personnel_number = ilban_human.student_teacher_no
+		WHERE ilban_human.human_name = #{humanName }
+			AND ilban_appointment.dept_code = #{rankNameKorean }
+			AND ilban_appointment.job_rank_code = #{humanName }
+	</select>
+</mapper>

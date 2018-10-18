@@ -33,11 +33,20 @@ public class FacultyStaffStatusController {
 
 	// 교직원현황 검색 리스트
 	@RequestMapping(value="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearchAction", method = RequestMethod.GET)
-	public String searchfacultyStaffStatusAction(Model model ,String searchYear) {
+	public String searchfacultyStaffStatusAction(Model model ,HttpServletRequest request) {
 		System.out.println("FacultyStaffStatusController-searchfacultyStaffStatusAction");
-		System.out.println("searchYear :" +searchYear);
 		
-		List<FacultyStaffStatus> searchFacultyList = facultyStaffStatusServie.selectfacultyStaffStatusList(searchYear);
+		String yearList = request.getParameter("yearList");
+		String countryCode = request.getParameter("countryCode");
+		
+		FacultyStaffStatus facultyStaffStatus = new FacultyStaffStatus();
+		
+		facultyStaffStatus.setYearList(yearList);
+		facultyStaffStatus.setCountryCode(countryCode);
+		
+		System.out.println("facultyStaffStatus :" +facultyStaffStatus);
+		
+		List<FacultyStaffStatus> searchFacultyList = facultyStaffStatusServie.selectfacultyStaffStatusList(facultyStaffStatus);
 		
 		model.addAttribute("searchFacultyList", searchFacultyList);
 		

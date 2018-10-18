@@ -23,7 +23,7 @@
 			,holiday_end_day
 			,holiday_registration_day
 			,holiday_modification_date)
-		VALUES((SELECT COUNT(holiday_number)+1 AS holiday_number FROM ilban_holiday ALIAS_FOR_SUBQUERY)
+		VALUES((SELECT COUNT(holiday_number)+1 AS holiday_number FROM ilban_holiday subQuery)
 			,#{personnelNumber}
 			,#{holidayName}
 			,#{holidayCategory}

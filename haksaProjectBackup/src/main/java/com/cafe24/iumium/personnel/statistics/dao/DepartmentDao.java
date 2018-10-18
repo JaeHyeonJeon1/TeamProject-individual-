@@ -15,7 +15,7 @@ public class DepartmentDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.RewardTeachersMapper.";
+	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.DepartmentMapper.";
 	
 	// 학과 검색 리스트
 	public List<TeamCode> searchDepartmentList() {

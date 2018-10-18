@@ -18,11 +18,11 @@ public class FacultyStaffStatusServie {
 	private FacultyStaffStatusDao facultyStaffStatusDao;
 	
 	// 검색년도 교직원 리스트
-	public List<FacultyStaffStatus> selectfacultyStaffStatusList(String searchYear) {
+	public List<FacultyStaffStatus> selectfacultyStaffStatusList(FacultyStaffStatus facultyStaffStatus ) {
 		System.out.println("FacultyStaffStatusServie-selectfacultyStaffStatusList");
-		System.out.println("searchYear :" +searchYear);
+		System.out.println("searchYear :" +facultyStaffStatus);
 		
-		return facultyStaffStatusDao.selectFacultyStaffStatusList(searchYear);
+		return facultyStaffStatusDao.selectFacultyStaffStatusList(facultyStaffStatus);
 	}
 	
 	// 날짜 검색

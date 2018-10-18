@@ -11,20 +11,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cafe24.iumium.common.dto.TeamCode;
 import com.cafe24.iumium.personnel.statistics.Service.DepartmentService;
+import com.cafe24.iumium.personnel.statistics.Service.FacultyStaffStatusServie;
+import com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus;
 
 @Controller
 public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private FacultyStaffStatusServie facultyStaffStatusServie;
 	
 	// 학과 검색 리스트
-	@RequestMapping(value="/personnel/statistics/department/departmentSearchList", method = RequestMethod.GET)
+	@RequestMapping(value="/personnel/statistics/department/searchDepartmentList", method = RequestMethod.GET)
 	public String departmentSearchList(Model model) {
 		System.out.println("DepartmentController-departmentSearchList");
 		
 		List<TeamCode> searchDepartmentList = departmentService.searchDepartmentList();
 		
+		List<FacultyStaffStatus> saerchYear = facultyStaffStatusServie.searchYear();
+		
+		model.addAttribute("saerchYear", saerchYear);
 		model.addAttribute("searchDepartmentList", searchDepartmentList);
 		
 		return "/personnel/statistics/department/departmentSearchList";

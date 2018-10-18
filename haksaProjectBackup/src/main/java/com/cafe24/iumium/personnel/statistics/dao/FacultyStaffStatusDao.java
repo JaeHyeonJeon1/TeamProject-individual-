@@ -18,11 +18,11 @@ public class FacultyStaffStatusDao {
 	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.FacultyStaffStatusMapper.";
 	
 	// 검색년도 교직원 리스트
-	public List<FacultyStaffStatus> selectFacultyStaffStatusList(String searchYear) {
+	public List<FacultyStaffStatus> selectFacultyStaffStatusList(FacultyStaffStatus facultyStaffStatus) {
 		System.out.println("FacultyStaffStatusDao-selectFacultyStaffStatusList");
-		System.out.println("searchYear :" +searchYear);
+		System.out.println("facultyStaffStatus :" +facultyStaffStatus);
 		
-		return sqlSessionTemplate.selectList(nameSpace +"searchYearUserList",searchYear);
+		return sqlSessionTemplate.selectList(nameSpace +"searchYearUserList" ,facultyStaffStatus);
 	}
 	
 	//날짜 검색

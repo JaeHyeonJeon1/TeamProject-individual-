@@ -15,6 +15,8 @@ public class FacultyStaffStatus {
 	private String humanEmail; // 이메일
 	private String jobGroupCode; 	//직군코드
 	private String	jobGroupName;	//직군 명
+	private String countryCode;	// 국적코드
+	
 	public String getYearList() {
 		return yearList;
 	}
@@ -88,6 +90,12 @@ public class FacultyStaffStatus {
 	public void setJobGroupName(String jobGroupName) {
 		this.jobGroupName = jobGroupName;
 	}
+	public String getCountryCode() {
+		return countryCode;
+	}
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 	
 	@Override
 	public String toString() {
@@ -95,7 +103,7 @@ public class FacultyStaffStatus {
 				+ deptNameKorean + ", teamCode=" + teamCode + ", teamNameKorean=" + teamNameKorean + ", jobRankCode="
 				+ jobRankCode + ", jobRankNameKorean=" + jobRankNameKorean + ", humanName=" + humanName
 				+ ", humanPhoneNumber=" + humanPhoneNumber + ", humanEmail=" + humanEmail + ", jobGroupCode="
-				+ jobGroupCode + ", jobGroupName=" + jobGroupName + "]";
+				+ jobGroupCode + ", jobGroupName=" + jobGroupName + ", countryCode=" + countryCode + "]";
 	}
 	
 }

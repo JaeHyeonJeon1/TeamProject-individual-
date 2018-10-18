@@ -3,31 +3,17 @@ package com.cafe24.iumium.personnel.generalaffairs.dto;
 
 public class TeachersWrittenApology {
 
-	
-	/*
-	 *교직원 시말서 번호
-	 *교직원 번호
-	 *등록자 아이디
-	 *징계 내역
-	 *시말서 제출여부
-	 *첨부 파일
-	 *시스템 등록일자
-	 *최종수정 일자
-	 *부서 명
-	 *직급 명
-	 *성명
-	 */
-	private int apologyNo;
-	private String personnelNumber;
-	private String recordId;
-	private String apologyDisciplinaryHistory;
-	private String apologyWhetherToSubmit;
-	private String apologyAttachedFile;
-	private String teachersWrittenApologyRegistrationDay;
-	private String apologyModificationDate;
-	private String deptNameKorean;
-	private String rankNameKorean;
-	private String humanName;
+	private int apologyNo;	// 교직원 시말서 번호
+	private String personnelNumber;	// 교직원 번호
+	private String recordId;	// 등록자 아이디
+	private String apologyDisciplinaryHistory;	// 징계 내역
+	private String apologyWhetherToSubmit;	// 시말서 제출여부
+	private String apologyAttachedFile;	// 첨부 파일
+	private String teachersWrittenApologyRegistrationDay;	// 시스템 등록일자
+	private String apologyModificationDate;	// 최종수정 일자
+	private String deptNameKorean;	// 부서 명
+	private String rankNameKorean;	// 직급 명
+	private String humanName;	// 성명
 	
 	public int getApologyNo() {
 		return apologyNo;

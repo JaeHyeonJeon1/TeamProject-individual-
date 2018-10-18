@@ -6,12 +6,12 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 		<title>faculty staff status list</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,9 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
+		<script type="text/javascript">
+		
+		</script>
 	</head>
 	
 	<body id="page-top">
@@ -45,42 +48,111 @@
 						<h1>교직원 현황 리스트</h1>
 					</div>
 					<br><br>
-					<c:forEach var="row" items="${searchFacultyList}">
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<h4 class="panel-title">
-										<a id="searchList" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											${row.jobGroupName } 리스트
-										</a>
-										</h4>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">
-											<c:forEach var="userData" items="${searchFacultyList}">
-												<c:if test="${userData.jobGroupName eq${row.jobGroupName }"><!-- ${facultyStaffStatusList.직군 eq ${'#searchList'}} -->
-													<div class="row">
-														<div class="col-sm-6 col-md-4">
-															<div class="thumbnail">
-																<img src="..." alt="...">
-																<div class="caption">
-																	<h3>성명 : ${userData.humanName }</h3>
-																	<p>부서 : ${userData.deptNameKorean } </p>
-																	<p>팀 : ${userData.teamCode }</p>
-																	<p>직급 : ${userData.jobRankCode }</p>
-																	<p>전화번호 : ${userData.humanPhoneNumber }</p>
-																	<p>이메일 : ${userData.humanEmail }</p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</c:if>
-											</c:forEach>
-										</div>
-									</div>
-								</div>
+					
+					<c:forEach var="row"  items="${searchFacultyList }">
+					
+						<div id="schoolteacherHead"  class="panel panel-info">
+							<div class="panel-body">
+						    	교원 리스트
 							</div>
+							
+							<div id="schoolteacher" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '교원'}">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>
+							</div>
+						</div>
 						
+						<div class="panel panel-info">
+							<div class="panel-body">
+					    		<a id="invitationHead" >겸임/초빙 리스트</a>
+							</div>
+							
+							<div id="invitation" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '겸임/초빙' }">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>	
+							</div>
+						</div>	
+						
+						<div class="panel panel-info">
+							<div id="employeeHead" class="panel-body">
+						    	<a>직원 리스트</a>
+							</div>
+							
+							<div id="employee" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '직원'}">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>
+							</div>
+						</div>
+						
+						<div class="panel panel-info">
+							<div id="contractHead" class="panel-body">
+						    	계약직 리스트
+							</div>
+							
+							<div id="contract" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '계약직'}">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>
+							</div>
+						</div>
+						
+						<div class="panel panel-info">
+							<div id="assistantHead" class="panel-body">
+						    	조교 리스트
+							</div>
+							
+							<div id="assistant" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '조교'}">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>
+							</div>
+						</div>
+						
+						<div class="panel panel-info">
+							<div id="timeLecturerHead" class="panel-body">
+						    	시간강사 리스트
+							</div>
+							
+							<div id="timeLecturer" class="panel-footer">
+								<c:if test="${row.jobGroupName eq '시간강사'}">
+									<p>부서 : ${row.deptNameKorean }</p>
+									<p>팀 : ${row.teamNameKorean }</p>
+									<p>직급 : ${row.jobRankNameKorean }</p>
+									<p>성명 : ${row.humanName }</p>
+									<p>전화번호 : ${row.humanPhoneNumber }</p>
+									<p>이메일 : ${row.humanEmail }</p>
+								</c:if>
+							</div>
+							
+						</div>
 					</c:forEach>
 				</div>
 				<!-- /.container-fluid -->

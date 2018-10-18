@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.iumium.personnel.statistics.dao.DepartmentMapper">
-
-	<!-- 교직원검색 리스트 -->
-    <select id="searchDepartmentList"  resultType="com.cafe24.iumium.dto.TeamCode">
-		SELECT team_code
-			,team_name_korean
+	
+	<!-- 학과 검색 -->
+	<select id="searchDepartmentList" resultType="com.cafe24.iumium.common.dto.TeamCode">
+	 	SELECT team_code AS teamCode
+			,team_name_korean AS teamNameKorean
 		FROM haksa_team
-		WHERE team_name_korean like CONCAT('%',학과)
-		ORDER BY team_name_korean ASC
-    </select>
-    
-    
+		WHERE team_is_used = 유
+	</select>
 </mapper>

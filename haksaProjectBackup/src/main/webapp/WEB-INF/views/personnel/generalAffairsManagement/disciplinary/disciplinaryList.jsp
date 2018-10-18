@@ -7,10 +7,14 @@
 		<meta charset="UTF-8">
 		<title>disciplinary List</title>
 		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
-		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Custom fonts for this template-->
 		<link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,6 +24,26 @@
 		
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
+		
+		<script type="text/javascript">
+			var insert = '${result}';
+			var checkDelete = '$(delete)'; 
+			
+			if(insert == '입력') {
+				
+				alert(insert+'되었습니다.');
+				
+			}
+			$(document).ready(function() {
+					
+				// 입력처리
+				$('#disciplinaryInsert').click(function() {
+					
+					location.href='/personnel/generalAffairsManagement/disciplinary/disciplinaryInsert';
+				})
+				
+			});
+		</script>
 		
 	</head>
 	<body id="page-top">
@@ -35,44 +59,37 @@
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
 				
-				<h1>징계 리스트</h1>
-				<br><br>
-				<table border="">
-			        <thead>
-			            <tr>
-			            	<td>부서 명</td>
-							<td>직급 명</td>
-							<td>성명</td>
-							<td>징계</td>
-							<td>징계기간</td>
-							<td>등록일자</td>
-			            </tr>
-			        </thead>
-			        <tbody>
-	            		<c:forEach var="row" items="${pologyList}">
-			                <tr>
-			                    <td>${row.deptNameKorean }</td>
-			                    <td>${row.rankNameKorean }</td>
-			                    <td>${row.humanName }</td>
-			                     <c:choose>
-										<c:when test="${row.apologyWhetherToSubmit eq 'C' }" >
-											<td>확인중</td>
-										</c:when>
-										
-										<c:when test="${row.apologyWhetherToSubmit eq 'Y' }" >
-											<td>승인완료</td>
-										</c:when>
-										
-										<c:when test="${row.apologyWhetherToSubmit eq 'N' }" >
-											<td>승인불가</td>
-										</c:when>
-									</c:choose>
-			                    <td>${row.teachersWrittenApologyRegistrationDay }</td>
-			                </tr>
-			            </c:forEach>
-	        		</tbody>
-	    		</table>
-				
+					<div class="page-header">
+						<h1>징계 리스트</h1>
+					</div>
+					<br><br>
+					<button type="button" id="disciplinaryInsert"class="btn btn-default btn-sm">입력</button>
+					
+					<table class="table table-hover">
+				        <thead>
+				            <tr>
+				            	<th>부서 명</th>
+								<th>직급 명</th>
+								<th>성명</th>
+								<th>징계</th>
+								<th>징계기간</th>
+								<th>등록일자</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+		            		<c:forEach var="row" items="${disciplinaryList}">
+				                <tr>
+				                    <td>${row.deptNameKorean }</td>
+				                    <td>${row.rankNameKorean }</td>
+				                    <td>${row.humanName }</td>
+				                    <td>${row.punishmentCodeName }</td>
+				                    <td>${row.teachersDisciplinaryStartDate }&nbsp;-&nbsp;${row.teachersDisciplinaryEndDate }</td>
+				                    <td>${row.teachersDisciplinaryRegistrationDay }</td>
+				                </tr>
+				            </c:forEach>
+		        		</tbody>
+		    		</table>
+					
 				</div>
 				<!-- /.container-fluid -->
 	

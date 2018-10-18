@@ -72,6 +72,7 @@
 				<a class="dropdown-item" href="/personnel/generalAffairsManagement/dutyWorker/dutyWorkerList">당직</a>
 				<a class="dropdown-item" href="/personnel/generalAffairsManagement/reward/rewardList">포상</a>
 				<a class="dropdown-item" href="/personnel/generalAffairsManagement/apology/apologyList">시말서</a>
+				<a class="dropdown-item" href="/personnel/generalAffairsManagement/disciplinary/disciplinaryList">징계</a>
 			</div>
 		</li>
 		<li class="nav-item dropdown">
@@ -81,9 +82,9 @@
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 				<a class="dropdown-item" href="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearch">교직원 현황</a>
 				<a class="dropdown-item" href="#">외국인교원 현황</a>
+				<a class="dropdown-item" href="/personnel/statistics/department/searchDepartmentList">학과별교원현황 출력</a> 
 				<a class="dropdown-item" href="#">전임교원 현황</a> 
 				<a class="dropdown-item" href="#">겸임 및 초빙 교원현황 출력</a>
-				<a class="dropdown-item" href="#">학과별교원현황 출력</a> 
 				<a class="dropdown-item" href="#">연령별교직원현황 출력</a>
 				<a class="dropdown-item" href="#">교직원명단 출력</a> 
 				<a class="dropdown-item" href="#">교원재임용현황 출력</a>
