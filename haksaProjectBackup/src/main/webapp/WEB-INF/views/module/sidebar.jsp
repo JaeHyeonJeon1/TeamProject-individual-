@@ -81,9 +81,9 @@
 			</a>
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 				<a class="dropdown-item" href="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearch">교직원 현황</a>
-				<a class="dropdown-item" href="#">외국인교원 현황</a>
-				<a class="dropdown-item" href="/personnel/statistics/department/searchDepartmentList">학과별교원현황 출력</a> 
-				<a class="dropdown-item" href="#">전임교원 현황</a> 
+				<a class="dropdown-item" href="/personnel/statistics/foreignSchoolStaff/foreignSchoolStaffSearch">외국인교원 현황</a>
+				<a class="dropdown-item" href="/personnel/statistics/department/departmentSearch">학과별교원현황 출력</a> 
+				<a class="dropdown-item" href="/personnel/statistics/fullTimeTeacher/fullTimeTeacherSearch">전임교원 현황</a> 
 				<a class="dropdown-item" href="#">겸임 및 초빙 교원현황 출력</a>
 				<a class="dropdown-item" href="#">연령별교직원현황 출력</a>
 				<a class="dropdown-item" href="#">교직원명단 출력</a> 

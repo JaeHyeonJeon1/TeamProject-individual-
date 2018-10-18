@@ -11,10 +11,11 @@
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
 		
@@ -27,7 +28,8 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
-		<script>
+		<script type="text/javascript">
+			
 			$(document).ready(function(){
 				
 				// 검색 버튼 클릭
@@ -40,14 +42,10 @@
 						return false;
 					}
 					
-				})
-			})
+				});
+			});
 		</script>
 	</head>
-	
-	<script type="text/javascript">
-		
-	</script>
 	
 	<body id="page-top">
 	
@@ -61,32 +59,33 @@
 	
 				<div class="container-fluid">
 				
-				<h1>교직원 현황 검색</h1>
-				<br><br>
-				
-				<form action="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearchAction" method="GET">
-					<table>
-						<tr>
-							<td>
-								기준일자 
-								<select name="yearList">
-									<option value="선택">===선택===</option>
-									<c:forEach var="row" items="${saerchYear}">
-										<option>${row.yearList-4 }-04-02</option>
-										<option>${row.yearList-3 }-04-02</option>
-										<option>${row.yearList-2 }-04-02</option>
-										<option>${row.yearList-1 }-04-02</option>
-										<option>${row.yearList }-04-02</option>
-									</c:forEach>
-								</select>
-								<input type="hidden" name="countryCode" value="82">
-								<button type="submit" id="saerchYearBtn" class="btn btn-default btn-sm">search</button>
-								<span id="searchYearHellper" class="label label-danger"></span>
-								
-							</td>
-						</tr>
-					</table>
-				</form>
+					<div class="page-header">
+						<h1>교직원 현황 검색</h1>
+					</div>
+					<br><br>
+					
+					<form action="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearchAction" method="GET">
+						<table>
+							<tr>
+								<td>
+									기준일자 
+									<select class="yearList" name="yearList">
+										<option value="선택">===선택===</option>
+										<c:forEach var="row" items="${saerchYear}">
+											<option>${row.yearList-4 }-04-02</option>
+											<option>${row.yearList-3 }-04-02</option>
+											<option>${row.yearList-2 }-04-02</option>
+											<option>${row.yearList-1 }-04-02</option>
+											<option>${row.yearList }-04-02</option>
+										</c:forEach>
+									</select>
+									<input type="hidden" name="countryCode" value="82">
+									<button type="submit" id="saerchYearBtn" class="btn btn-default btn-sm">검색</button>
+									<span id="searchYearHellper" class="label label-danger"></span>
+								</td>
+							</tr>
+						</table>
+					</form>
 							
 				</div>
 				<!-- /.container-fluid -->

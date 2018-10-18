@@ -44,6 +44,7 @@
 	
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
+				
 					<div class="page-header">
 						<h1>교직원 현황 리스트</h1>
 					</div>
@@ -154,6 +155,7 @@
 							
 						</div>
 					</c:forEach>
+					
 				</div>
 				<!-- /.container-fluid -->
 	

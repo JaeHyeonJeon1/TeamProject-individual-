@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cafe24.iumium.personnel.statistics.dao.DepartmentMapper">
-	
-	<!-- 학과 검색 -->
-	<select id="searchDepartmentList" resultType="com.cafe24.iumium.common.dto.TeamCode">
-	 	SELECT team_code AS teamCode
-			,team_name_korean AS teamNameKorean
-		FROM haksa_team
-		WHERE team_is_used = '유'
-		AND team_name_korean LIKE '%학과'
-	</select>
-	
+<mapper namespace="com.cafe24.iumium.personnel.statistics.dao.ForeignSchoolStaffMapper">
+
 	<!-- 현재날짜 -->
-    <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.Department">
+    <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
     	SELECT LEFT(now(), 4) AS yearList
     </select>
      
-    <!-- 검색 리스트 -->
-    <select id="searchDepartmentUserList" resultType="com.cafe24.iumium.personnel.statistics.dto.Department">
-    	SELECT ilban_human.human_name AS humanName 
+    <!-- 교직원검색 리스트 -->
+    <select id="foreignSchoolStaffList" resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
+		SELECT ilban_human.human_name AS humanName 
 			,haksa_department.dept_name_korean AS deptNameKorean
 			,haksa_team.team_name_korean AS teamNameKorean
 			,haksa_job_rank.job_rank_name_korean AS jobRankNameKorean
@@ -51,9 +42,8 @@
 				AND ilban_appointment_temporary.appointment_temporary_appointment_end_term > #{yearList})
 			OR (ilban_other_appointment.other_appointment_contract_start_term >= #{yearList}
 				AND ilban_other_appointment.other_appointment_contract_end_term > #{yearList})
-				AND haksa_team.team_name_korean = #{deptCode}
+				AND ilban_human.country_code IS NOT #{countryCode}
 		]]-->
-		GROUP BY haksa_team.team_name_korean ASC
-    </select>
-    
+		ORDER BY ilban_human.human_name ASC
+	</select>
 </mapper>

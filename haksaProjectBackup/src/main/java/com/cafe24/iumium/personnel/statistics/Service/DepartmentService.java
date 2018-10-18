@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.iumium.common.dto.TeamCode;
 import com.cafe24.iumium.personnel.statistics.dao.DepartmentDao;
+import com.cafe24.iumium.personnel.statistics.dto.Department;
 
 @Service
 @Transactional
@@ -23,4 +24,19 @@ public class DepartmentService {
 		
 		return departmentDao.searchDepartmentList();
 	}
+	
+	// 날짜 출력
+	public List<Department> searchYear() {
+		System.out.println("DepartmentService-searchYear");
+		
+		return departmentDao.yearList();
+	}
+	
+	// 검색 리스트
+	public List<Department> selectDepartmentList(Department department) {
+		System.out.println("DepartmentService-selectDepartmentList");
+		
+		return departmentDao.selectDepartmentList(department);
+	}
+	
 }

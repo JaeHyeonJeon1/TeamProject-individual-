@@ -1,4 +1,4 @@
-<!-- 2018.10.12 28기 전재현 -->
+<!-- 2018.10.18 28기 전재현 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -6,11 +6,8 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- 학과별 검색 -->
-		<title>department Search</title>
+	
+		<title>foreign school staff search</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
 		
@@ -18,6 +15,7 @@
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		
 		
 		<link href="/resources/vendor/bootstrap/js/bootstrap.js" rel="stylesheet">
 		
@@ -31,41 +29,23 @@
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
 		<script type="text/javascript">
-		
-			$(document).ready(function() {
+			
+			$(document).ready(function(){
 				
-				$('#searchDepartmentBtn').click(function() {
+				// 검색 버튼 클릭
+				$('#foreignSchoolStaffBtn').click(function() {
 					
-					// 검색
-					if($('#searchYear').val() == '선택') {
+					if($('#yearList').val() == '선택') {
 						
-						$('#searchYearHellper').text('검색년도를 선택해주세요.');
-						$('#searchYear').focus();
+						$('#searchYearHellper').text('검색기간을 선택하세요');
 						
 						return false;
-						
-					} else if($('#departmentList').val() == '선택') {
-						
-						$('#searchYearHellper').text('');
-						$('#searchDepartmentListHellper').text('학과를 선택해주세요.');
-						$('#departmentList').focus();
-						
-						return false;
-					} else {
-						
-						$('#searchDepartmentListHellper').text('');
-						
 					}
 					
 				});
-				
 			});
 		</script>
 	</head>
-	
-	<script type="text/javascript">
-		
-	</script>
 	
 	<body id="page-top">
 	
@@ -80,43 +60,28 @@
 				<div class="container-fluid">
 				
 					<div class="page-header">
-						<h1>교직원 현황 리스트</h1>
+						<h1>외국인 교직원 현황 검색</h1>
 					</div>
 					<br><br>
 					
-					<form action="/personnel/statistics/department/departmentSearchAction" method="GET">
+					<form action="/personnel/statistics/foreignSchoolStaff/foreignSchoolStaffSearchAction" method="GET">
 						<table>
 							<tr>
 								<td>
-									기준일자
-									<select id="searchYear" name="searchYear">
+									기준일자 
+									<select class="yearList" name="yearList">
 										<option value="선택">===선택===</option>
-										<c:forEach var="row" items="${saerchYear }">
-											<option>${row.yearList-4}-04-02</option>
-											<option>${row.yearList-3}-04-02</option>
-											<option>${row.yearList-2}-04-02</option>
-											<option>${row.yearList-1}-04-02</option>
-											<option>${row.yearList}-04-02</option>
+										<c:forEach var="row" items="${saerchYear}">
+											<option>${row.yearList-4 }-04-02</option>
+											<option>${row.yearList-3 }-04-02</option>
+											<option>${row.yearList-2 }-04-02</option>
+											<option>${row.yearList-1 }-04-02</option>
+											<option>${row.yearList }-04-02</option>
 										</c:forEach>
 									</select>
+									<input type="hidden" name="countryCode" value="82">
+									<button type="submit" id="foreignSchoolStaffBtn" class="btn btn-default btn-sm">검색</button>
 									<span id="searchYearHellper" class="label label-danger"></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									학과 검색
-									<select id="departmentList" name="departmentList">
-										<option value="선택">===선택===</option>
-										<c:forEach var="departmentList" items="${searchDepartmentList }">
-											<option value="${departmentList.teamCode }">${departmentList.teamNameKorean}</option>
-										</c:forEach>
-									</select>
-									<span id="searchDepartmentListHellper" class="label label-danger"></span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<button type="submit"  id="searchDepartmentBtn" class="btn btn-default btn-sm">검색</button>
 								</td>
 							</tr>
 						</table>

@@ -16,19 +16,26 @@ public class FullTimeTeacherDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.RewardTeachersMapper.";
+	final String nameSpace = "com.cafe24.iumium.personnel.statistics.dao.FullTimeTeacherMapper.";
 	
-	// 그룹리스트
+	// 날짜 조회
+	public List<FullTimeTeacher> yearList() {
+		System.out.println("FullTimeTeacherDao-yearList");
+		
+		return sqlSessionTemplate.selectList(nameSpace +"saerchYear");
+	}
+	
+	// 직군 리스트
 	public List<JobGroupCode> groupCodeList() {
 		System.out.println("FullTimeTeacherDao-groupCodeList");
 		
-		return sqlSessionTemplate.selectList(nameSpace +"selectGroupCode");
+		return sqlSessionTemplate.selectList(nameSpace +"groupList");
 	}
 	
 	// 검색 리스트
-	public List<FullTimeTeacher> searchFullTimeTeacherList(String searchDate ,String groupCode) {
+	public List<FullTimeTeacher> searchFullTimeTeacherList(FullTimeTeacher fullTimeTeacher) {
 		System.out.println("FullTimeTeacherDao-searchFullTimeTeacherList");
 		
-		return sqlSessionTemplate.selectList(nameSpace +"selectFullTimeTeacherList" ,searchDate + groupCode);
+		return sqlSessionTemplate.selectList(nameSpace +"searchGroupList" ,fullTimeTeacher);
 	}
 }

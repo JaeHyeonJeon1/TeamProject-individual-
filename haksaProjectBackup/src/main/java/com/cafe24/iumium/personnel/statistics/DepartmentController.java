@@ -3,6 +3,8 @@ package com.cafe24.iumium.personnel.statistics;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,29 +13,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cafe24.iumium.common.dto.TeamCode;
 import com.cafe24.iumium.personnel.statistics.Service.DepartmentService;
-import com.cafe24.iumium.personnel.statistics.Service.FacultyStaffStatusServie;
-import com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus;
+import com.cafe24.iumium.personnel.statistics.dto.Department;
 
 @Controller
 public class DepartmentController {
 
 	@Autowired
 	private DepartmentService departmentService;
-	@Autowired
-	private FacultyStaffStatusServie facultyStaffStatusServie;
 	
 	// 학과 검색 리스트
-	@RequestMapping(value="/personnel/statistics/department/searchDepartmentList", method = RequestMethod.GET)
+	@RequestMapping(value="/personnel/statistics/department/departmentSearch", method = RequestMethod.GET)
 	public String departmentSearchList(Model model) {
 		System.out.println("DepartmentController-departmentSearchList");
 		
 		List<TeamCode> searchDepartmentList = departmentService.searchDepartmentList();
 		
-		List<FacultyStaffStatus> saerchYear = facultyStaffStatusServie.searchYear();
+		List<Department> saerchYear = departmentService.searchYear();
 		
 		model.addAttribute("saerchYear", saerchYear);
 		model.addAttribute("searchDepartmentList", searchDepartmentList);
 		
-		return "/personnel/statistics/department/departmentSearchList";
+		return "/personnel/statistics/department/departmentSearch";
+	}
+	
+	// 검색 리스트 
+	@RequestMapping(value="/personnel/statistics/department/departmentSearchAction", method = RequestMethod.GET)
+	public String selectDepartmentList(Model model ,HttpServletRequest request) {
+		System.out.println("DepartmentController-selectDepartmentList");
+		
+		String yearList = request.getParameter("searchYear");
+		String departmentList = request.getParameter("departmentList");
+		
+		System.out.println("yearList :"+yearList);
+		System.out.println("departmentList :" +departmentList);
+		
+		Department department = new Department();
+		
+		department.setYearList(yearList);
+		department.setDepartmentList(departmentList);
+		
+		List<Department> searchDepartmentList = departmentService.selectDepartmentList(department);
+		
+		model.addAttribute("searchDepartmentList", searchDepartmentList);
+		
+		return "personnel/statistics/department/departmentList";
 	}
 }

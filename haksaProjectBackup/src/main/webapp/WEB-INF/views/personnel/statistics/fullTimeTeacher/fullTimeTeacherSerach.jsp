@@ -6,12 +6,12 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 		<title>Full time teacher search</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,22 +27,32 @@
 		<!-- Custom styles for this template-->
 		<link href="/resources/css/sb-admin.css" rel="stylesheet">
 	
-		<script>
+		<script type="text/javascript">
 		
 			$(document).ready(function() {
 				
-				$('searchFullTimeTeacherBtn').click(function() {
+				$('#searchTeacherBtn').click(function() {
 					
-					// 직군코드 null
-					if($('#groupCode').val() == null) {
+					// 검색
+					if($('#yearList').val() == '선택') {
 						
-						$('groupCodeHellper').text('직군을 선택해주세요.');
+						$('#searchYearHellper').text('검색년도를 선택해주세요.');
+						$('#yearList').focus();
+						
+						return false;
+						
+					} else if($('#groupNameList').val() == '선택') {
+						
+						$('#searchYearHellper').text('');
+						$('#searchGroupNameListHellper').text('직군을 선택해주세요.');
+						$('#groupNameList').focus();
 						
 						return false;
 						
 					} else {
 						
-						$('groupCodeHellper').text('');
+						$('#searchGroupNameListHellper').text('');
+						
 					}
 					
 				});
@@ -63,47 +73,51 @@
 			<div id="content-wrapper">
 	
 				<div class="container-fluid">
-				<!-- 여기에 내용이 담긴다 -->
 					
 					<div class="page-header">
-						<h1>전임교원 검색</h1>
+						<h1>직군별 현황 검색</h1>
 					</div>
 					<br><br>
 					
 					<form action="/personnel/statistics/fullTimeTeacher/fullTimeTeacherSerachAction" method="GET">
-					<table>
-						<tr>
-							<td>
-								기준일자
-								<select id="searchYear">
-									<option id="searchYearsViewMore" value="ViewMore">더보기</option>
-									<c:forEach var="searchYear" begin="${fullTimeTeacherSearchYear}" end="${(fullTimeTeacherSearchYear+5)}" step="1">
-										<option>${searchYear}-04-02</option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								보직
-								<select id="groupCode">
-									<option value="Null">===선택===</option>
-									<c:forEach var="row" items="${groupList}" >
-										<option value="직군코드">직군명<%-- ${groupList. } --%></option>
-									</c:forEach>
-								</select>
-								<input id="groupCodeHellper" type="text">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button id="searchFullTimeTeacherBtn" type="submit" value="검색"></button>
-							</td>
-						</tr>
-					</table>
-					
-				</form>
-				</div>	
+						<table>
+							<tr>
+								<td>
+									기준일자 
+									<select id="yearList" name="yearList">
+										<option value="선택">===선택===</option>
+										<c:forEach var="row" items="${yearList}">
+											<option>${row.yearList-4 }-04-02</option>
+											<option>${row.yearList-3 }-04-02</option>
+											<option>${row.yearList-2 }-04-02</option>
+											<option>${row.yearList-1 }-04-02</option>
+											<option>${row.yearList }-04-02</option>
+										</c:forEach>
+									</select>
+									<span id="searchYearHellper" class="label label-danger"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									직군별 검색
+									<select id="groupNameList" name="groupNameList">
+										<option value="선택">===선택===</option>
+										<c:forEach var="groupList" items="${groupList }">
+											<option value="${groupList.jobGroupCode }">${groupList.jobGroupName}</option>
+										</c:forEach>
+									</select>
+									<span id="searchGroupNameListHellper" class="label label-danger"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<button type="submit"  id="searchTeacherBtn" class="btn btn-default btn-sm">검색</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+							
+				</div>
 				<!-- /.container-fluid -->
 	
 				<!-- Sticky Footer -->

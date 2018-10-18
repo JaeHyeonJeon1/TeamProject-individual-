@@ -3,6 +3,8 @@ package com.cafe24.iumium.personnel.statistics.Service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,13 @@ public class FullTimeTeacherService {
 	@Autowired
 	private FullTimeTeacherDao fullTimeTeacherDao;
 	
+	// 날짜
+	public List<FullTimeTeacher> yearList() {
+		System.out.println("StatisticsService-yearList");
+		
+		return fullTimeTeacherDao.yearList();
+	}
+	
 	// 직군 리스트
 	public List<JobGroupCode> jobGroupCodeList() {
 		System.out.println("StatisticsService-jobGroupCodeList");
@@ -26,9 +35,18 @@ public class FullTimeTeacherService {
 	}
 	
 	// 검색 리스트
-	public List<FullTimeTeacher> searchFullTimeTeacherList(String searchDate ,String groupCode) {
+	public List<FullTimeTeacher> searchFullTimeTeacherList(HttpServletRequest request) {
 		System.out.println("FullTimeTeacherService-searchFullTimeTeacherList");
 		
-		return fullTimeTeacherDao.searchFullTimeTeacherList(searchDate ,groupCode);
+		String yearList = request.getParameter("yearList");
+		String groupNameList = request.getParameter("groupNameList");
+		
+		FullTimeTeacher fullTimeTeacher = new FullTimeTeacher();
+		
+		fullTimeTeacher.setYearList(yearList);
+		fullTimeTeacher.setJobGroupCode(groupNameList);
+		System.out.println("fullTimeTeacher :" +fullTimeTeacher);
+		
+		return fullTimeTeacherDao.searchFullTimeTeacherList(fullTimeTeacher);
 	}
 }

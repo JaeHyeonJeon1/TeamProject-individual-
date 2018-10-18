@@ -23,6 +23,7 @@ public class FacultyStaffStatusController {
 	// 교직원현황 년도 검색
 	@RequestMapping(value="/personnel/statistics/facultyStaffStatus/facultyStaffStatusSearch", method = RequestMethod.GET)
 	public String facultyStaffStatusYearList(Model model) {
+		System.out.println("FacultyStaffStatusController-facultyStaffStatusYearList");
 		
 		List<FacultyStaffStatus> saerchYear = facultyStaffStatusServie.searchYear();
 		

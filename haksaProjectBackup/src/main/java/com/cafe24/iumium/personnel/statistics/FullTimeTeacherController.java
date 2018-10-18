@@ -22,15 +22,19 @@ public class FullTimeTeacherController {
 	private FullTimeTeacherService fullTimeTeacherService;
 	
 	// 검색 년도, 보직별 출력
-	@RequestMapping(value="/personnel/statistics/facultyStaffStatus/fullTimeTeacherSearch", method = RequestMethod.GET)
+	@RequestMapping(value="/personnel/statistics/fullTimeTeacher/fullTimeTeacherSearch", method = RequestMethod.GET)
 	public String fullTimeTeacherSearchYearList(Model model) {
 		System.out.println("FullTimeTeacherController-fullTimeTeacherSearchList");
 		
+		List<FullTimeTeacher> yearList = fullTimeTeacherService.yearList();
+		
 		List<JobGroupCode> groupList = fullTimeTeacherService.jobGroupCodeList();
+		
+		model.addAttribute("yearList", yearList);
 		
 		model.addAttribute("groupList", groupList);
 		
-		return "/personnel/statistics/facultyStaffStatus/fullTimeTeacherSearch";
+		return "/personnel/statistics/fullTimeTeacher/fullTimeTeacherSerach";
 	}
 	
 	// 직군 검색 리스트
@@ -38,13 +42,10 @@ public class FullTimeTeacherController {
 	public String fullTimeTeacherSearchList(Model model ,HttpServletRequest request) {
 		System.out.println("FullTimeTeacherController-fullTimeTeacherSearchList");
 		
-		String searchDate = request.getParameter("searchYear");
-		String groupCode = request.getParameter("groupCode");
-		
-		List<FullTimeTeacher> searchFullTimeTeacherSearchList = fullTimeTeacherService.searchFullTimeTeacherList(searchDate, groupCode);
+		List<FullTimeTeacher> searchFullTimeTeacherSearchList = fullTimeTeacherService.searchFullTimeTeacherList(request);
 		
 		model.addAttribute("searchFullTimeTeacherSearchList", searchFullTimeTeacherSearchList);
 	
-		return "/personnel/statistics/facultyStaffStatus/facultyStaffStatusList";
+		return "personnel/statistics/fullTimeTeacher/fullTimeTeacherList";
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.iumium.common.dto.TeamCode;
+import com.cafe24.iumium.personnel.statistics.dto.Department;
 
 @Repository
 public class DepartmentDao {
@@ -23,4 +24,20 @@ public class DepartmentDao {
 		
 		return sqlSessionTemplate.selectList(nameSpace +"searchDepartmentList");
 	}
+	
+	// 날짜 출력
+	public List<Department> yearList() {
+		System.out.println("DepartmentDao-yearList");
+		
+		return sqlSessionTemplate.selectList(nameSpace +"saerchYear");
+	}
+	
+	// 검색 리스트
+	public List<Department> selectDepartmentList(Department department) {
+		System.out.println("DepartmentDao-selectDepartmentList");
+		System.out.println("department : " +department);
+		
+		return sqlSessionTemplate.selectList(nameSpace +"searchDepartmentUserList" ,department);
+	}
+	
 }

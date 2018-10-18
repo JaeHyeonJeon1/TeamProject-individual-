@@ -6,13 +6,13 @@
 	<head>
 	
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<!-- 보직별 검색 리스트 -->
 		<title>fullTime Teacher List</title>
 		
 		<script src="/resources/vendor/jquery/jquery.js"></script>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		
 		<!-- Bootstrap core CSS-->
 		<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,45 +42,30 @@
 	
 				<div class="container-fluid">
 				<!-- 여기에 내용이 담긴다 -->
+					
 					<div class="page-header">
-						<h1>보직별  검색 리스트</h1>
+						<h1>전임교원 검색 리스트</h1>
 					</div>
 					<br><br>
-					<c:forEach var="row" items="${searchFullTimeTeacherSearchList}">
-						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="headingOne">
-									<h4 class="panel-title">
-									<a id="groupTitle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-										보직별
-									</a>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-									<div class="panel-body">
-										<c:if test=""><!-- ${searchFullTimeTeacherSearchList.보직별  eq ${'groupTitle'} } -->
-											<c:forEach var="searchList" items="${searchFullTimeTeacherSearchList}">
-													<div class="row">
-														<div class="col-sm-6 col-md-4">
-															<div class="thumbnail">
-																<img src="..." alt="...">
-																<div class="caption">
-																	<h3>이름</h3>
-																	<p>부서</p>
-																	<p>직급</p>
-																	<p>전화번호</p>
-																	<p>이메일</p>
-																</div>
-															</div>
-														</div>
-													</div>
-											</c:forEach>
-										</c:if>
-									</div>
-								</div>
+					
+					<c:forEach var="row"  items="${searchFullTimeTeacherSearchList }">
+					
+						<div id="schoolteacherHead"  class="panel panel-info">
+							<div class="panel-body">
+						    	${row.jobGroupName } 리스트 
+							</div>
+							
+							<div id="schoolteacher" class="panel-footer">
+								<p>부서 : ${row.deptNameKorean }</p>
+								<p>팀 : ${row.teamNameKorean }</p>
+								<p>직급 : ${row.jobRankNameKorean }</p>
+								<p>성명 : ${row.humanName }</p>
+								<p>전화번호 : ${row.humanPhoneNumber }</p>
+								<p>이메일 : ${row.humanEmail }</p>
 							</div>
 						</div>
 					</c:forEach>
+						
 				</div>
 				<!-- /.container-fluid -->
 	
