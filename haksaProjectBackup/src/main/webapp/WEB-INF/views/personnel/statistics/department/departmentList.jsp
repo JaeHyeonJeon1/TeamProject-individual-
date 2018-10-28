@@ -54,23 +54,21 @@
 					</div>
 					<br><br>
 					
-					<c:forEach var="row"  items="${searchDepartmentList }">
-					
-						<div id="schoolteacherHead"  class="panel panel-info">
-							<div class="panel-body">
-						    	${row.departmentList } 리스트 
-							</div>
-							
-							<div id="schoolteacher" class="panel-footer">
-								<p>부서 : ${row.deptNameKorean }</p>
-								<p>팀 : ${row.teamNameKorean }</p>
-								<p>직급 : ${row.jobRankNameKorean }</p>
-								<p>성명 : ${row.humanName }</p>
-								<p>전화번호 : ${row.humanPhoneNumber }</p>
-								<p>이메일 : ${row.humanEmail }</p>
-							</div>
+					<div id="schoolteacherHead"  class="panel panel-info">
+						<div class="panel-body">
+					    	${row.departmentList } 리스트 
 						</div>
-					</c:forEach>
+						<c:forEach var="row"  items="${searchDepartmentList }">
+							<div id="schoolteacher" class="panel-footer">
+								<p>부서 : ${userList.deptNameKorean }</p>
+								<p>팀 : ${userList.teamNameKorean }</p>
+								<p>직급 : ${userList.jobRankNameKorean }</p>
+								<p>성명 : ${userList.humanName }</p>
+								<p>전화번호 : ${userList.humanPhoneNumber }</p>
+								<p>이메일 : ${userList.humanEmail }</p>
+							</div>
+						</c:forEach>
+					</div>
 					
 				</div>
 				<!-- /.container-fluid -->

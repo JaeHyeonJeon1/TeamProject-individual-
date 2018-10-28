@@ -50,14 +50,14 @@
 					</div>
 					<br><br>
 					
-					<c:forEach var="row"  items="${searchFacultyList }">
+					<c:forEach var="row"  items="${facultyStaffStatusList }">
 					
 						<div id="schoolteacherHead"  class="panel panel-info">
 							<div class="panel-body">
 						    	교원 리스트
 							</div>
 							
-							<div id="schoolteacher" class="panel-footer">
+							<div id="schoolTeacher" class="panel-footer">
 								<c:if test="${row.jobGroupName eq '교원'}">
 									<p>부서 : ${row.deptNameKorean }</p>
 									<p>팀 : ${row.teamNameKorean }</p>

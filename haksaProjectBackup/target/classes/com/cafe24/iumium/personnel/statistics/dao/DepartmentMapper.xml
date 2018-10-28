@@ -45,11 +45,11 @@
 		LEFT JOIN ilban_other_appointment
 			ON ilban_appointment.appointment_school_personnel_number = ilban_other_appointment.appointment_school_personnel_number 
 		<!--[CDATA[
-			WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term >= #{yearList}
+			WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term <= #{yearList}
 				AND ilban_appointment_permanent.appointment_permanent_appointment_end_term > #{yearList})
-			OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term >= #{yearList}
+			OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term <= #{yearList}
 				AND ilban_appointment_temporary.appointment_temporary_appointment_end_term > #{yearList})
-			OR (ilban_other_appointment.other_appointment_contract_start_term >= #{yearList}
+			OR (ilban_other_appointment.other_appointment_contract_start_term <= #{yearList}
 				AND ilban_other_appointment.other_appointment_contract_end_term > #{yearList})
 				AND haksa_team.team_name_korean = #{deptCode}
 		]]-->

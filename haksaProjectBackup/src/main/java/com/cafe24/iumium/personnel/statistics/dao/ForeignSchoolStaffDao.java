@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus;
+import com.cafe24.iumium.personnel.statistics.dto.ForeignSchoolStaff;
 
 @Repository
 public class ForeignSchoolStaffDao {
@@ -25,9 +26,9 @@ public class ForeignSchoolStaffDao {
 	}
 	
 	// 검색 리스트
-	public List<FacultyStaffStatus> foreignSchoolStaffList(FacultyStaffStatus facultyStaffStatus) {
+	public List<FacultyStaffStatus> foreignSchoolStaffList(ForeignSchoolStaff foreignSchoolStaff) {
 		System.out.println("ForeignSchoolStaffDao-foreignSchoolStaffList");
 		
-		return sqlSessionTemplate.selectList(nameSpace +"foreignSchoolStaffList" ,facultyStaffStatus);
+		return sqlSessionTemplate.selectList(nameSpace +"foreignSchoolStaffList" ,foreignSchoolStaff);
 	}
 }

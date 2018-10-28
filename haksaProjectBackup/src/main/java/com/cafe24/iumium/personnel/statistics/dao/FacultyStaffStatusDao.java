@@ -22,7 +22,7 @@ public class FacultyStaffStatusDao {
 		System.out.println("FacultyStaffStatusDao-selectFacultyStaffStatusList");
 		System.out.println("facultyStaffStatus :" +facultyStaffStatus);
 		
-		return sqlSessionTemplate.selectList(nameSpace +"searchYearUserList" ,facultyStaffStatus);
+		return sqlSessionTemplate.selectList(nameSpace +"searchUserList" ,facultyStaffStatus);
 	}
 	
 	//날짜 검색

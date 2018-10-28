@@ -3,6 +3,8 @@ package com.cafe24.iumium.personnel.statistics.Service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +35,19 @@ public class DepartmentService {
 	}
 	
 	// 검색 리스트
-	public List<Department> selectDepartmentList(Department department) {
+	public List<Department> selectDepartmentList(HttpServletRequest request ) {
 		System.out.println("DepartmentService-selectDepartmentList");
+		
+		String yearList = request.getParameter("searchYear");
+		String departmentList = request.getParameter("departmentList");
+		
+		System.out.println("yearList :"+yearList);
+		System.out.println("departmentList :" +departmentList);
+		
+		Department department = new Department();
+		
+		department.setYearList(yearList);
+		department.setDepartmentList(departmentList);
 		
 		return departmentDao.selectDepartmentList(department);
 	}

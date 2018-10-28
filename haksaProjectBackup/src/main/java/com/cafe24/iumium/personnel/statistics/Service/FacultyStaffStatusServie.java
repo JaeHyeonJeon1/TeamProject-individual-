@@ -3,6 +3,8 @@ package com.cafe24.iumium.personnel.statistics.Service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,18 @@ public class FacultyStaffStatusServie {
 	private FacultyStaffStatusDao facultyStaffStatusDao;
 	
 	// 검색년도 교직원 리스트
-	public List<FacultyStaffStatus> selectfacultyStaffStatusList(FacultyStaffStatus facultyStaffStatus ) {
+	public List<FacultyStaffStatus> selectfacultyStaffStatusList(HttpServletRequest request ) {
 		System.out.println("FacultyStaffStatusServie-selectfacultyStaffStatusList");
-		System.out.println("searchYear :" +facultyStaffStatus);
+
+		String yearList = request.getParameter("yearList");
+		String countryCode = request.getParameter("countryCode");
+		
+		FacultyStaffStatus facultyStaffStatus = new FacultyStaffStatus();
+		
+		facultyStaffStatus.setYearList(yearList);
+		facultyStaffStatus.setCountryCode(countryCode);
+		
+		System.out.println("facultyStaffStatus :" +facultyStaffStatus);
 		
 		return facultyStaffStatusDao.selectFacultyStaffStatusList(facultyStaffStatus);
 	}

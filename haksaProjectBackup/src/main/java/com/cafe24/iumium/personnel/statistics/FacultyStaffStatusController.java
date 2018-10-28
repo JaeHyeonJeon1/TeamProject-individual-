@@ -37,19 +37,9 @@ public class FacultyStaffStatusController {
 	public String searchfacultyStaffStatusAction(Model model ,HttpServletRequest request) {
 		System.out.println("FacultyStaffStatusController-searchfacultyStaffStatusAction");
 		
-		String yearList = request.getParameter("yearList");
-		String countryCode = request.getParameter("countryCode");
+		List<FacultyStaffStatus> facultyStaffStatusList = facultyStaffStatusServie.selectfacultyStaffStatusList(request);
 		
-		FacultyStaffStatus facultyStaffStatus = new FacultyStaffStatus();
-		
-		facultyStaffStatus.setYearList(yearList);
-		facultyStaffStatus.setCountryCode(countryCode);
-		
-		System.out.println("facultyStaffStatus :" +facultyStaffStatus);
-		
-		List<FacultyStaffStatus> searchFacultyList = facultyStaffStatusServie.selectfacultyStaffStatusList(facultyStaffStatus);
-		
-		model.addAttribute("searchFacultyList", searchFacultyList);
+		model.addAttribute("facultyStaffStatusList", facultyStaffStatusList);
 		
 		return "personnel/statistics/facultyStaffStatus/facultyStaffStatusList";
 	}

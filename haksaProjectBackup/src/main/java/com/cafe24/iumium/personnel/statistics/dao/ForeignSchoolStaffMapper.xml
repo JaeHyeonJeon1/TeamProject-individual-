@@ -3,12 +3,12 @@
 <mapper namespace="com.cafe24.iumium.personnel.statistics.dao.ForeignSchoolStaffMapper">
 
 	<!-- 현재날짜 -->
-    <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
+    <select id="saerchYear"  resultType="com.cafe24.iumium.personnel.statistics.dto.ForeignSchoolStaff">
     	SELECT LEFT(now(), 4) AS yearList
     </select>
      
     <!-- 교직원검색 리스트 -->
-    <select id="foreignSchoolStaffList" resultType="com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus">
+    <select id="foreignSchoolStaffList" resultType="com.cafe24.iumium.personnel.statistics.dto.ForeignSchoolStaff">
 		SELECT ilban_human.human_name AS humanName 
 			,haksa_department.dept_name_korean AS deptNameKorean
 			,haksa_team.team_name_korean AS teamNameKorean
@@ -36,13 +36,13 @@
 		LEFT JOIN ilban_other_appointment
 			ON ilban_appointment.appointment_school_personnel_number = ilban_other_appointment.appointment_school_personnel_number 
 		<!--[CDATA[
-			WHERE (ilban_appointment_permanent.appointment_permanent_appointment_start_term >= #{yearList}
+			WHERE ilban_human.country_code != #{countryCode}
+				AND (ilban_appointment_permanent.appointment_permanent_appointment_start_term <= #{yearList}
 				AND ilban_appointment_permanent.appointment_permanent_appointment_end_term > #{yearList})
-			OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term >= #{yearList}
+			OR (ilban_appointment_temporary.appointment_temporary_appointment_start_term <= #{yearList}
 				AND ilban_appointment_temporary.appointment_temporary_appointment_end_term > #{yearList})
-			OR (ilban_other_appointment.other_appointment_contract_start_term >= #{yearList}
+			OR (ilban_other_appointment.other_appointment_contract_start_term <= #{yearList}
 				AND ilban_other_appointment.other_appointment_contract_end_term > #{yearList})
-				AND ilban_human.country_code IS NOT #{countryCode}
 		]]-->
 		ORDER BY ilban_human.human_name ASC
 	</select>

@@ -41,18 +41,7 @@ public class DepartmentController {
 	public String selectDepartmentList(Model model ,HttpServletRequest request) {
 		System.out.println("DepartmentController-selectDepartmentList");
 		
-		String yearList = request.getParameter("searchYear");
-		String departmentList = request.getParameter("departmentList");
-		
-		System.out.println("yearList :"+yearList);
-		System.out.println("departmentList :" +departmentList);
-		
-		Department department = new Department();
-		
-		department.setYearList(yearList);
-		department.setDepartmentList(departmentList);
-		
-		List<Department> searchDepartmentList = departmentService.selectDepartmentList(department);
+		List<Department> searchDepartmentList = departmentService.selectDepartmentList(request);
 		
 		model.addAttribute("searchDepartmentList", searchDepartmentList);
 		

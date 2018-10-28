@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.iumium.personnel.statistics.dao.ForeignSchoolStaffDao;
 import com.cafe24.iumium.personnel.statistics.dto.FacultyStaffStatus;
+import com.cafe24.iumium.personnel.statistics.dto.ForeignSchoolStaff;
 
 @Service
 @Transactional
@@ -33,11 +34,11 @@ public class ForeignSchoolStaffService {
 		String yearList = request.getParameter("yearList");
 		String countryCode = request.getParameter("countryCode");
 		
-		FacultyStaffStatus facultyStaffStatus = new FacultyStaffStatus();
+		ForeignSchoolStaff foreignSchoolStaff = new ForeignSchoolStaff();
 		
-		facultyStaffStatus.setYearList(yearList);
-		facultyStaffStatus.setCountryCode(countryCode);
+		foreignSchoolStaff.setYearList(yearList);
+		foreignSchoolStaff.setCountryCode(countryCode);
 		
-		return foreignSchoolStaffDao.foreignSchoolStaffList(facultyStaffStatus);
+		return foreignSchoolStaffDao.foreignSchoolStaffList(foreignSchoolStaff);
 	}
 }
